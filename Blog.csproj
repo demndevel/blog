@@ -68,4 +68,8 @@
       <_ContentIncludedByDefault Remove="wwwroot\css\site.css" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="wwwroot" />
+    </ItemGroup>
+
 </Project>
