@@ -1,6 +1,5 @@
-﻿using System.Diagnostics;
-using Microsoft.AspNetCore.Mvc;
-using Blog.Models;
+﻿using Microsoft.AspNetCore.Mvc;
+//using Blog.Models;
 
 namespace Blog.Controllers;
 
@@ -17,8 +16,33 @@ public class HomeController : Controller
     {
         return View();
     }
+    
+    public IActionResult Projects()
+    {
+        return View();
+    }
 
-    public IActionResult Privacy()
+    public IActionResult Blog()
+    {
+        return View();
+    }
+    
+    public IActionResult Notes()
+    {
+        return View();
+    }
+    
+    public IActionResult Tags()
+    {
+        return View();
+    }
+    
+    public IActionResult Rss()
+    {
+        return View();
+    }
+    
+    public IActionResult Admin()
     {
         return View();
     }
@@ -26,6 +50,6 @@ public class HomeController : Controller
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {
-        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        return View();
     }
 }

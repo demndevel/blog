@@ -3,12 +3,37 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>@ViewData["Title"] - Blog</title>
+    <title>@ViewData["Title"] - demn's space</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍗</text></svg>"> 
+    <link rel="stylesheet" href="~/css/chota.css">
 </head>
 <body>
 
+<nav class="nav">
+    <div class="nav-left" style="margin-left: 25px;">
+        <div class="tabs">
+            <a href="/" @(ViewData["CurrentPage"]?.ToString() == "index" ? "class=active" : "")>Home</a>
+            <a href="/projects" @(ViewData["CurrentPage"]?.ToString() == "projects" ? "class=active" : "")>Projects</a>
+            <a href="/blog" @(ViewData["CurrentPage"]?.ToString() == "blog" ? "class=active" : "")>Blog</a>
+            <a href="/notes" @(ViewData["CurrentPage"]?.ToString() == "notes" ? "class=active" : "")>Notes</a>
+            <a href="/tags" @(ViewData["CurrentPage"]?.ToString() == "tags" ? "class=active" : "")>Tags</a>
+        </div>
+    </div>
+    <div class="nav-right">
+        <a href="/rss">RSS</a>
+    </div>
+</nav>
+
 @RenderBody()
 
+<footer class="text-center" style="margin-bottom: 25px;">
+        <a href="/rss">RSS</a>
+        • 
+        <a href="#">Github</a>
+        • 
+        <a href="#">Telegram</a>
+        • 
+        <a href="#">Email</a>
+    </footer>
 </body>
 </html>

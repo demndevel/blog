@@ -1,0 +1,63 @@
+@{
+    ViewData["Title"] = "Admin";
+    ViewData["CurrentPage"] = "admin";
+}
+
+<main>
+    <h1>Admin page ~-~</h1>
+    <hr>
+    <br>
+
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Edit</th>
+            <th>Remove</th>
+        </tr>
+
+        <tr>
+            <td>1</td>
+            <td>(Ab)using Rust traits to write silly things</td>
+            <td>
+                <button class="button outline">EDIT</button>
+            </td>
+            <td>
+                <button class="button error">DELETE</button>
+            </td>
+        </tr>
+
+        <tr>
+            <td>2</td>
+            <td>(Ab)using Rust traits to write silly things</td>
+            <td>
+                <button class="button outline">EDIT</button>
+            </td>
+            <td>
+                <button class="button error">DELETE</button>
+            </td>
+        </tr>
+    </table>  
+
+    <details>
+        <summary>Edit</summary>
+
+        <input placeholder="ID">
+        <input placeholder="Password">
+        <input placeholder="Title">
+        <input placeholder="Tags (tag1;tag2;etc)">
+        <textarea placeholder="Text" style="resize: vertical;"></textarea>
+    </details>
+
+    <details>
+        <summary>Write</summary>
+
+        <input placeholder="Password">
+        <input placeholder="Title">
+        <input placeholder="Tags (tag1;tag2;etc)">
+        <textarea placeholder="Text" style="resize: vertical;"></textarea>
+    </details>
+</main>
+<br>
+<br>
+<br>
