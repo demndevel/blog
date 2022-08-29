@@ -9,10 +9,10 @@
     <br>
 
     <ul>
-        <li><a href="#">Rust (3)</a></li>
-        <li><a href="#">C++ (28)</a></li>
-        <li><a href="#">Rust (3)</a></li>
-        <li><a href="#">Among us (9)</a></li>
+        @foreach (var tag in ViewBag.tags)
+        {
+            <li><a href="#">@tag.Text</a></li>
+        }
     </ul>    
 </main>
 <br>

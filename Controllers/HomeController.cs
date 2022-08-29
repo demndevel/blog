@@ -6,9 +6,11 @@ namespace Blog.Controllers;
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
+    private readonly ApplicationContext _db;
 
-    public HomeController(ILogger<HomeController> logger)
+    public HomeController(ILogger<HomeController> logger,  ApplicationContext db)
     {
+        _db = db;
         _logger = logger;
     }
 
@@ -34,6 +36,9 @@ public class HomeController : Controller
     
     public IActionResult Tags()
     {
+        var tags = _db.Tags.ToList();
+        ViewBag.tags = tags;
+        
         return View();
     }
     
