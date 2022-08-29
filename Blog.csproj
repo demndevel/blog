@@ -69,11 +69,11 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Models" />
       <Folder Include="wwwroot" />
     </ItemGroup>
 
     <ItemGroup>
+      <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.0-preview.7" />
       <PackageReference Include="NReco.Logging.File" Version="1.1.5" />
     </ItemGroup>
 

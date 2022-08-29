@@ -1,9 +1,14 @@
+using Blog;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
+string? connection = builder.Configuration.GetConnectionString("DefaultConnection");
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddLogging(loggingBuilder => {
     loggingBuilder.AddFile("app.log", append:true);
 });
+builder.Services.AddDbContext<ApplicationContext>(options => options.UseNpgsql(connection));
 
 var app = builder.Build();
 
