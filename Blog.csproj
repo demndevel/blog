@@ -73,4 +73,8 @@
       <Folder Include="wwwroot" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="NReco.Logging.File" Version="1.1.5" />
+    </ItemGroup>
+
 </Project>

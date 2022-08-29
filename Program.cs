@@ -1,6 +1,9 @@
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
+builder.Services.AddLogging(loggingBuilder => {
+    loggingBuilder.AddFile("app.log", append:true);
+});
 
 var app = builder.Build();
 
