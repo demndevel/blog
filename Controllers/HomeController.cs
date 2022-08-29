@@ -30,6 +30,11 @@ public class HomeController : Controller
         return View();
     }
     
+    public IActionResult BlogByPage(int page)
+    {
+        return View("Blog");
+    }
+    
     public IActionResult Tags()
     {
         var tags = _db.Tags.ToList();
