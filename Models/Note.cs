@@ -6,6 +6,6 @@ public class Note
     public string? Title { get; set; }
     public string? ShortDescription { get; set; }
     public string? Text { get; set; }
-    public DateTime Date { get; set; } = DateTime.Today;
+    public DateTime Date { get; set; }
     public List<int> Tags { get; set; } = new();
 }

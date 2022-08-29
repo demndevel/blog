@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Blog.Models;
+using Microsoft.AspNetCore.Mvc;
 //using Blog.Models;
 
 namespace Blog.Controllers;
@@ -25,11 +26,6 @@ public class HomeController : Controller
     }
 
     public IActionResult Blog()
-    {
-        return View();
-    }
-    
-    public IActionResult Notes()
     {
         return View();
     }

@@ -35,8 +35,8 @@ app.MapControllerRoute(
     name: "blog",
     pattern: "/blog", new {controller = "Home", action = "Blog"});
 app.MapControllerRoute(
-    name: "notes",
-    pattern: "/notes", new {controller = "Home", action = "Notes"});
+    name: "blog",
+    pattern: "/blog/{page}", new {controller = "Home", action = "Blog"});
 app.MapControllerRoute(
     name: "projects",
     pattern: "/projects", new {controller = "Home", action = "Projects"});
