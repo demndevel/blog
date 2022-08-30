@@ -26,9 +26,22 @@
 }
 
 
-main {
-    margin-left: 25px;
-    margin-right: 25px;
+html {
+    margin-left: 15%;
+    margin-right: 15%;
+}
+
+@media(max-width: 730px) {
+    html {
+        margin-left: 5%;
+        margin-right: 5%;
+    }
+}
+
+@media(max-width: 505px) {
+    .rss-btn {
+        margin-top: 30px;
+    }
 }
 
 html {

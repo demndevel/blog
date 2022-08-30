@@ -1,3 +1,4 @@
+@using Blog.Models
 @{
     ViewData["Title"] = "Projects";
     ViewData["CurrentPage"] = "projects";
@@ -8,26 +9,17 @@
     <hr>
     <br>
 
-    <div class="card">
-        <h3>My first project</h3>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. <a href="#">GitHub ⧉</a></p>
-    </div>
+    @foreach (Project project in ViewBag.projects)
+    {
+        <div class="card">
+            <h3><a href="@project.Id"></a>@project.Title</h3> <!-- id to search just for me -->
+            <p>
+                @project.ShortDescription <a href="@project.Link">Link ⧉</a>
+            </p>
+        </div>
 
-    <br>
-
-    <div class="card">
-        <h3>My second project</h3>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. <a href="#">GitHub ⧉</a></p>
-    </div>
-
-    <br>
-
-    <div class="card">
-        <h3>Asp.net blog</h3>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. <a href="#">GitHub ⧉</a></p>
-    </div>
-
-    <br>
+        <br>
+    }
 </main>
 <br>
 <br>

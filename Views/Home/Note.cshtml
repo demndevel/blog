@@ -1,0 +1,35 @@
+@using Blog.Models
+@using System.Web
+@{
+    Note note = ViewBag.note;
+    ViewData["Title"] = note.Title;
+    ViewData["CurrentPage"] = "blog";
+}
+
+
+<main>
+    <h1>@note.Title</h1>
+    <hr>
+    <br>
+
+    <details>
+        <p>@note.Date.ToShortDateString() • @note.Text?.Length symbols</p>
+        @foreach (int tag in note.Tags)
+        {
+            @foreach (Tag t in ViewBag.tags)
+            {
+                @if (t.Id == tag)
+                {
+                    <a href="/tag/@t.Id" class="tag">@t.Text</a>
+                }
+            }
+        }
+    </details>
+    
+    <br>
+    
+    @Html.Raw(HttpUtility.HtmlDecode(note.Text))
+</main>
+<br>
+<br>
+<br>

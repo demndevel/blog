@@ -8,7 +8,11 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddLogging(loggingBuilder => {
     loggingBuilder.AddFile("app.log", append:true);
 });
+builder.Services.Configure<TokenConfig>(builder.Configuration.GetSection("AdminToken"));
+builder.Services.Configure<HomeConfig>(builder.Configuration.GetSection("Home"));
 builder.Services.AddDbContext<ApplicationContext>(options => options.UseNpgsql(connection));
+builder.Services.AddMvc().AddXmlDataContractSerializerFormatters();
+builder.Services.AddMvc().AddXmlSerializerFormatters();
 
 var app = builder.Build();
 
@@ -18,7 +22,6 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
@@ -30,10 +33,10 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}");
 app.MapControllerRoute(
     name: "rss",
-    pattern: "/rss", new {controller = "Home", action = "Rss"});
+    pattern: "/rss", new {controller = "Rss", action = "Rss"});
 app.MapControllerRoute(
     name: "blog",
-    pattern: "/blog", new {controller = "Home", action = "Blog"});
+    pattern: "/blog", new {controller = "Home", action = "BlogByPage", page = 1});
 app.MapControllerRoute(
     name: "blog",
     pattern: "/blog/{page}", new {controller = "Home", action = "BlogByPage"});
@@ -43,5 +46,20 @@ app.MapControllerRoute(
 app.MapControllerRoute(
     name: "tags",
     pattern: "/tags", new {controller = "Home", action = "Tags"});
+app.MapControllerRoute(
+    name: "tag",
+    pattern: "/tag/{id}", new {controller = "Home", action = "Tag"});
+app.MapControllerRoute(
+    name: "note",
+    pattern: "/note/{id}", new {controller = "Home", action = "Note"});
 
 app.Run();
+
+public class TokenConfig
+{
+    public string Token { get; set; } = "";
+}
+public class HomeConfig
+{
+    public string Text { get; set; } = "";
+}

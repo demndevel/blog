@@ -11,7 +11,7 @@
     <ul>
         @foreach (var tag in ViewBag.tags)
         {
-            <li><a href="#">@tag.Text</a></li>
+            <li><a href="/tag/@tag.Id">@tag.Text</a></li>
         }
     </ul>    
 </main>

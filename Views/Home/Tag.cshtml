@@ -1,15 +1,15 @@
 @using Blog.Models
 @{
-    ViewData["Title"] = "Blog";
-    ViewData["CurrentPage"] = "blog";
+    ViewData["Title"] = ViewBag.tag.Text;
+    ViewData["CurrentPage"] = "tags";
 }
 
 <main>
-    <h1>Blog</h1>
+    <h1>Notes with "@ViewBag.tag.Text" tag</h1>
     <hr>
     <br>
 
-    @foreach(Note note in ViewBag.notes)
+    @foreach (Note note in ViewBag.notes)
     {
         <div class="card">
             <h3>
@@ -17,7 +17,7 @@
             </h3>
             <details>
                 <p>@note.Date.ToShortDateString() • @note.Text?.Length symbols</p>
-                @foreach(int tag in note.Tags)
+                @foreach (int tag in note.Tags)
                 {
                     @foreach (Tag t in ViewBag.tags)
                     {
@@ -29,25 +29,13 @@
                 }
             </details>
             <h6></h6>
-            <p>@note.ShortDescription <a href="/note/@note.Id">Read more ➜</a></p>
+            <p>
+                @note.ShortDescription <a href="/note/@note.Id">Read more ➜</a>
+            </p>
         </div>
 
         <br>
     }
-    <nav class="nav">
-        <div class="nav-left">
-            @if (ViewBag.previous != -1)
-            {
-                <a href="/blog/@ViewBag.previous" class="button outline">Previous</a>
-            }
-        </div>
-        <div class="nav-right">
-            @if (ViewBag.next != -1)
-            {
-                <a href="/blog/@ViewBag.next" class="button outline">Next</a>
-            }
-        </div>
-    </nav>
 </main>
 <br>
 <br>
