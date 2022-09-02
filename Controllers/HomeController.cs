@@ -57,6 +57,7 @@ public class HomeController : Controller
     public IActionResult Tags()
     {
         var tags = _db.Tags.ToArray();
+        
         ViewBag.tags = tags;
         
         return View();
@@ -78,23 +79,18 @@ public class HomeController : Controller
     public IActionResult Note(int id)
     {
         var note = _db.Notes.FirstOrDefault(n => n.Id == id);
+        
         if (note is null)
             return NotFound();
+        
         ViewBag.note = note;
         ViewBag.tags = _db.Tags.ToList();
+        
         return View();
     }
     
     public IActionResult Admin()
     {
-        /*var n = new Note { Tags = {4}, Title = "asd", ShortDescription = ",", Date = DateTime.UtcNow, Text = ""};
-        var n1 = new Note { Tags = {4}, Title = "asd1", ShortDescription = ",", Date = DateTime.UtcNow, Text = ""};
-        var n2 = new Note { Tags = {3,4}, Title = "asd2", ShortDescription = ",", Date = DateTime.UtcNow, Text = ""};
-        var n3 = new Note { Tags = {4}, Title = "asd3", ShortDescription = ",", Date = DateTime.UtcNow, Text = ""};
-        
-        _db.Notes.AddRange(n, n1, n2, n3);
-        _db.SaveChanges();*/
-        
         return View();
     }
 

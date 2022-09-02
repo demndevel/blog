@@ -141,7 +141,6 @@ public class AdminController : ControllerBase
         var tag = new Tag { Text = text };
 
         _db.Tags.Add(tag);
-
         _db.SaveChanges();
         
         return Ok();

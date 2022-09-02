@@ -1,4 +1,3 @@
-using System.Globalization;
 using System.Xml;
 using Blog.Models;
 using Microsoft.AspNetCore.Mvc;
