@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Xml;
 using Blog.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -52,7 +53,7 @@ public class RssController : Controller
 
                 writer.WriteElementString("title", note.Title);
                 writer.WriteElementString("pubDate",
-                    note.Date.ToString("ddd, dd MMM yyyy") + " 00:00:00 +0000");
+                    note.Date.ToString("ddd, dd MMM yyyy", CultureInfo.GetCultureInfo("en-US")) + " 00:00:00 +0000");
                 writer.WriteElementString("link", $"{url}/note/{note.Id}");
                 writer.WriteElementString("description", note.ShortDescription);
 
