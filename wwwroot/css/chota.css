@@ -52,9 +52,6 @@ html {
     .nav-left {
         margin-left: 0;
     }
-    .tabs {
-        flex-direction: column;
-    }
 }
 
 html {
