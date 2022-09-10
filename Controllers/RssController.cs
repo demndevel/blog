@@ -1,21 +1,23 @@
 using System.Globalization;
 using System.Xml;
 using Blog.Models;
+using Blog.Repository.Implementations;
+using Blog.Repository.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Blog.Controllers;
 
 public class RssController : Controller
 {
-    private readonly ApplicationContext _db;
-    
+    private readonly IRepository<Note> _notesRepository;
+
     public RssController(ApplicationContext db)
     {
-        _db = db;
+        _notesRepository = new NoteRepository(db);
     }
     public ContentResult Rss()
     {
-        var lastTenNotes = _db.Notes.OrderByDescending(n => n.Date).Take(10).ToList();
+        var lastTenNotes = _notesRepository.GetArray().OrderByDescending(n => n.Date).Take(10).ToList();
         var xml = BuildXmlFeed($"{Request.Scheme}://{Request.Host}", lastTenNotes);
         return new ContentResult
         {

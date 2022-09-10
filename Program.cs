@@ -36,22 +36,22 @@ app.MapControllerRoute(
     pattern: "/rss", new {controller = "Rss", action = "Rss"});
 app.MapControllerRoute(
     name: "blog",
-    pattern: "/blog", new {controller = "Home", action = "BlogByPage", page = 1});
+    pattern: "/blog", new {controller = "Notes", action = "BlogByPage", page = 1});
 app.MapControllerRoute(
     name: "blog",
-    pattern: "/blog/{page}", new {controller = "Home", action = "BlogByPage"});
+    pattern: "/blog/{page}", new {controller = "Notes", action = "BlogByPage"});
 app.MapControllerRoute(
     name: "projects",
-    pattern: "/projects", new {controller = "Home", action = "Projects"});
+    pattern: "/projects", new {controller = "Projects", action = "Projects"});
 app.MapControllerRoute(
     name: "tags",
-    pattern: "/tags", new {controller = "Home", action = "Tags"});
+    pattern: "/tags", new {controller = "Tags", action = "Tags"});
 app.MapControllerRoute(
     name: "tag",
-    pattern: "/tag/{id}", new {controller = "Home", action = "Tag"});
+    pattern: "/tag/{id}", new {controller = "Tags", action = "Tag"});
 app.MapControllerRoute(
     name: "note",
-    pattern: "/note/{id}", new {controller = "Home", action = "Note"});
+    pattern: "/note/{id}", new {controller = "Notes", action = "Note"});
 
 app.Run();
 

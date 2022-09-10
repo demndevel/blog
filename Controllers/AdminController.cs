@@ -1,4 +1,6 @@
 using Blog.Models;
+using Blog.Repository.Implementations;
+using Blog.Repository.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 
@@ -7,12 +9,17 @@ namespace Blog.Controllers;
 public class AdminController : ControllerBase
 {
     private readonly ILogger<HomeController> _logger;
-    private readonly ApplicationContext _db;
+    private readonly IRepository<Note> _notesRepository;
+    private readonly IRepository<Tag> _tagsRepository;
+    private readonly IRepository<Project> _projectsRepository;
     private readonly TokenConfig _config;
 
     public AdminController(ILogger<HomeController> logger, IOptions<TokenConfig> config,  ApplicationContext db)
     {
-        _db = db;
+        _notesRepository = new NoteRepository(db);
+        _tagsRepository = new TagRepository(db);
+        _projectsRepository = new ProjectRepository(db);
+
         _logger = logger;
         _config = config.Value;
     }
@@ -32,8 +39,8 @@ public class AdminController : ControllerBase
             Date = DateTime.UtcNow
         };
 
-        _db.Add(note);
-        _db.SaveChanges();
+        _notesRepository.Insert(note);
+        _notesRepository.Save();
 
         return Ok();
     }
@@ -44,18 +51,17 @@ public class AdminController : ControllerBase
         if (!CheckPassword(password))
             return Forbid();
 
-        var toEdit = _db.Notes.FirstOrDefault(n => n.Id == id);
-
-        if (toEdit is null)
-            return NotFound();
-
-        toEdit.Title = title;
-        toEdit.Text = text;
-        toEdit.ShortDescription = shortDescription;
-        toEdit.Tags = ParseTags(tags);
-
-        _db.SaveChanges();
+        var newNote = new Note
+        {
+            Title = title,
+            Text = text,
+            ShortDescription = shortDescription,
+            Tags = ParseTags(tags)
+        };
         
+        _notesRepository.Update(id, newNote);
+        _notesRepository.Save();
+
         return Ok();
     }
 
@@ -65,13 +71,8 @@ public class AdminController : ControllerBase
         if (!CheckPassword(password))
             return Forbid();
 
-        var toDelete = _db.Notes.FirstOrDefault(n => n.Id == id);
-        
-        if (toDelete is null)
-            return NotFound();
-        
-        _db.Remove(toDelete);
-        _db.SaveChanges();
+        _notesRepository.Delete(_notesRepository.GetById(id));
+        _notesRepository.Save();
         
         return Ok();
     }
@@ -88,10 +89,10 @@ public class AdminController : ControllerBase
             ShortDescription = description,
             Link = link
         };
-
-        _db.Projects.Add(project);
-        _db.SaveChanges();
         
+        _projectsRepository.Insert(project);
+        _projectsRepository.Save();
+                
         return Ok();
     }
     
@@ -101,16 +102,13 @@ public class AdminController : ControllerBase
         if (!CheckPassword(password))
             return Forbid();
 
-        var toEdit = _db.Projects.FirstOrDefault(p => p.Id == id);
-
-        if (toEdit is null)
-            return NotFound();
-
-        toEdit.Title = title;
-        toEdit.ShortDescription = description;
-        toEdit.Link = link;
-
-        _db.SaveChanges();
+        _projectsRepository.Update(id, new Project
+        {
+            Title = title,
+            ShortDescription = description,
+            Link = link
+        });
+        _projectsRepository.Save();
         
         return Ok();
     }
@@ -121,13 +119,8 @@ public class AdminController : ControllerBase
         if (!CheckPassword(password))
             return Forbid();
 
-        var toDelete = _db.Projects.FirstOrDefault(p => p.Id == id);
-        
-        if (toDelete is null)
-            return NotFound();
-        
-        _db.Remove(toDelete);
-        _db.SaveChanges();
+        _projectsRepository.Delete(_projectsRepository.GetById(id));
+        _projectsRepository.Save();
         
         return Ok();
     }
@@ -138,10 +131,11 @@ public class AdminController : ControllerBase
         if (!CheckPassword(password))
             return Forbid();
 
-        var tag = new Tag { Text = text };
-
-        _db.Tags.Add(tag);
-        _db.SaveChanges();
+        _tagsRepository.Insert(new Tag
+        {
+            Text = text
+        });
+        _tagsRepository.Save();
         
         return Ok();
     }
@@ -152,14 +146,11 @@ public class AdminController : ControllerBase
         if (!CheckPassword(password))
             return Forbid();
         
-        var toEdit = _db.Tags.FirstOrDefault(t => t.Id == id);
-
-        if (toEdit is null)
-            return NotFound();
-        
-        toEdit.Text = text;
-        
-        _db.SaveChanges();
+        _tagsRepository.Update(id, new Tag
+        {
+            Text = text
+        });
+        _tagsRepository.Save();
         
         return Ok();
     }
@@ -170,14 +161,9 @@ public class AdminController : ControllerBase
         if (!CheckPassword(password))
             return Forbid();
         
-        var toDelete = _db.Tags.FirstOrDefault(t => t.Id == id);
+        _tagsRepository.Delete(_tagsRepository.GetById(id));
+        _tagsRepository.Save();
 
-        if (toDelete is null)
-            return NotFound();
-
-        _db.Tags.Remove(toDelete);
-        _db.SaveChanges();
-        
         return Ok();
     }
     
