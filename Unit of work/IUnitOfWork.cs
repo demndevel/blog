@@ -5,8 +5,5 @@ namespace Blog.Unit_of_work;
 
 public interface IUnitOfWork
 {
-    INoteRepository Notes { get; }
-    ITagRepository Tags { get; }
-    IRepository<Project> Projects { get; }
-    void Save();
+    public Task Save(CancellationToken ctx = default);
 }

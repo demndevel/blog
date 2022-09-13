@@ -1,4 +1,4 @@
-using Blog.Unit_of_work;
+using Blog.Repository.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Blog.Controllers;
@@ -6,16 +6,16 @@ namespace Blog.Controllers;
 public class TagsController : Controller
 {
     private readonly ILogger<HomeController> _logger;
-    private readonly IUnitOfWork _unitOfWork;
-    public TagsController(ILogger<HomeController> logger, IUnitOfWork unitOfWork)
+    private readonly ITagRepository _tags;
+    public TagsController(ILogger<HomeController> logger, ITagRepository tags)
     {
-        _unitOfWork = unitOfWork;
+        _tags = tags;
         _logger = logger;
     }
     
     public IActionResult Tags()
     {
-        var tags = _unitOfWork.Tags.GetArray();
+        var tags = _tags.GetArray();
         
         ViewBag.tags = tags;
         
@@ -24,9 +24,9 @@ public class TagsController : Controller
     
     public IActionResult Tag(int id)
     {
-        var tag = _unitOfWork.Tags.GetById(id);
-        var tags = _unitOfWork.Tags.GetArray();
-        var notes = _unitOfWork.Tags.GetNotesByTag(id);
+        var tag = _tags.GetById(id);
+        var tags = _tags.GetArray();
+        var notes = _tags.GetNotesByTag(id);
         
         ViewBag.tag = tag;
         ViewBag.tags = tags;

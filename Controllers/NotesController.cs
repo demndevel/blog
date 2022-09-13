@@ -1,4 +1,4 @@
-using Blog.Unit_of_work;
+using Blog.Repository.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Blog.Controllers;
@@ -6,12 +6,15 @@ namespace Blog.Controllers;
 public class NotesController : Controller
 {
     private readonly ILogger<HomeController> _logger;
-    private readonly IUnitOfWork _unitOfWork;
-
-    public NotesController(IUnitOfWork unitOfWork, ILogger<HomeController> logger)
+    private readonly INoteRepository _notes;
+    private readonly ITagRepository _tags;
+    
+    public NotesController(INoteRepository notes, ITagRepository tags, ILogger<HomeController> logger)
     {
         _logger = logger;
-        _unitOfWork = unitOfWork;
+
+        _notes = notes;
+        _tags = tags;
     }
     
     public IActionResult BlogByPage(int page)
@@ -19,9 +22,9 @@ public class NotesController : Controller
         if (page < 1)
             return View("Blog");
             
-        var notesCount = _unitOfWork.Notes.GetCount();
-        var notes = _unitOfWork.Notes.GetPagedList(page, 10);
-        var tags = _unitOfWork.Tags.GetArray();
+        var notesCount = _notes.GetCount();
+        var notes = _notes.GetPagedList(page, 10);
+        var tags = _tags.GetArray();
         
         ViewBag.notes = notes;
         ViewBag.tags = tags;
@@ -41,10 +44,10 @@ public class NotesController : Controller
     
     public IActionResult Note(int id)
     {
-        var note = _unitOfWork.Notes.GetById(id);
+        var note = _notes.GetById(id);
 
         ViewBag.note = note;
-        ViewBag.tags =_unitOfWork.Tags.GetArray();
+        ViewBag.tags = _tags.GetArray();
         
         return View();
     }

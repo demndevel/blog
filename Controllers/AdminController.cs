@@ -1,5 +1,6 @@
 using Blog.Configs;
 using Blog.Models;
+using Blog.Repository.Interfaces;
 using Blog.Unit_of_work;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -10,13 +11,22 @@ public class AdminController : ControllerBase
 {
     private readonly ILogger<HomeController> _logger;
     private readonly TokenConfig _config;
+    private readonly INoteRepository _notes;
+    private readonly ITagRepository _tags;
+    private readonly IRepository<Project> _projects;
     private readonly IUnitOfWork _unitOfWork;
-
-    public AdminController(ILogger<HomeController> logger, IOptions<TokenConfig> config, IUnitOfWork unitOfWork)
+    
+    public AdminController(ILogger<HomeController> logger, IOptions<TokenConfig> config, INoteRepository notes, ITagRepository tags, IRepository<Project> projects, IUnitOfWork unitOfWork)
     {
-        _unitOfWork = unitOfWork;
         _logger = logger;
+        
         _config = config.Value;
+
+        _notes = notes;
+        _tags = tags;
+        _projects = projects;
+
+        _unitOfWork = unitOfWork;
     }
 
     [HttpPost]
@@ -34,7 +44,7 @@ public class AdminController : ControllerBase
             Date = DateTime.UtcNow
         };
 
-        _unitOfWork.Notes.Insert(note);
+        _notes.Insert(note);
         _unitOfWork.Save();
 
         return Ok();
@@ -54,7 +64,7 @@ public class AdminController : ControllerBase
             Tags = ParseTags(tags)
         };
         
-        _unitOfWork.Notes.Update(id, newNote);
+        _notes.Update(id, newNote);
         _unitOfWork.Save();        
 
         return Ok();
@@ -66,7 +76,7 @@ public class AdminController : ControllerBase
         if (!CheckPassword(password))
             return Forbid();
 
-        _unitOfWork.Notes.Delete(_unitOfWork.Notes.GetById(id));
+        _notes.Delete(_notes.GetById(id));
         _unitOfWork.Save();
 
         return Ok();
@@ -85,7 +95,7 @@ public class AdminController : ControllerBase
             Link = link
         };
         
-        _unitOfWork.Projects.Insert(project);
+        _projects.Insert(project);
         _unitOfWork.Save();
                 
         return Ok();
@@ -97,7 +107,7 @@ public class AdminController : ControllerBase
         if (!CheckPassword(password))
             return Forbid();
         
-        _unitOfWork.Projects.Update(id, new Project
+        _projects.Update(id, new Project
         {
             Title = title,
             ShortDescription = description,
@@ -114,7 +124,7 @@ public class AdminController : ControllerBase
         if (!CheckPassword(password))
             return Forbid();
 
-        _unitOfWork.Projects.Delete(_unitOfWork.Projects.GetById(id));
+        _projects.Delete(_projects.GetById(id));
         _unitOfWork.Save();
         
         return Ok();
@@ -126,7 +136,7 @@ public class AdminController : ControllerBase
         if (!CheckPassword(password))
             return Forbid();
 
-        _unitOfWork.Tags.Insert(new Tag
+        _tags.Insert(new Tag
         {
             Text = text
         });
@@ -141,7 +151,7 @@ public class AdminController : ControllerBase
         if (!CheckPassword(password))
             return Forbid();
         
-        _unitOfWork.Tags.Update(id, new Tag
+        _tags.Update(id, new Tag
         {
             Text = text
         });
@@ -156,7 +166,7 @@ public class AdminController : ControllerBase
         if (!CheckPassword(password))
             return Forbid();
         
-        _unitOfWork.Tags.Delete(_unitOfWork.Tags.GetById(id));
+        _tags.Delete(_tags.GetById(id));
         _unitOfWork.Save();
 
         return Ok();
