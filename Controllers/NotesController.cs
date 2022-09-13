@@ -42,10 +42,7 @@ public class NotesController : Controller
     public IActionResult Note(int id)
     {
         var note = _unitOfWork.Notes.GetById(id);
-        
-        if (note is null)
-            return NotFound();
-        
+
         ViewBag.note = note;
         ViewBag.tags =_unitOfWork.Tags.GetArray();
         

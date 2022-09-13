@@ -7,7 +7,7 @@ namespace Blog.Unit_of_work;
 public sealed class UnitOfWork : IUnitOfWork, IDisposable
 {
     private readonly ApplicationContext _context;
-    public IRepository<Note> Notes { get; }
+    public INoteRepository Notes { get; }
     public ITagRepository Tags { get; }
     public IRepository<Project> Projects { get; }
 

@@ -21,11 +21,6 @@ public sealed class TagRepository : ITagRepository
     {
         return _db.Tags.Count();
     }
-
-    public List<Tag> GetPagedList(int page, int pageSize)
-    {
-        return _db.Tags.ToList();
-    }
     
     public Tag[] GetArray()
     {

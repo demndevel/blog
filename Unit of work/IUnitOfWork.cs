@@ -5,7 +5,7 @@ namespace Blog.Unit_of_work;
 
 public interface IUnitOfWork
 {
-    IRepository<Note> Notes { get; }
+    INoteRepository Notes { get; }
     ITagRepository Tags { get; }
     IRepository<Project> Projects { get; }
     void Save();

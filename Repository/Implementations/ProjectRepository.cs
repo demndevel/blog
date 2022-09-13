@@ -22,11 +22,6 @@ public class ProjectRepository : IRepository<Project>
         return _db.Projects.Count();
     }
 
-    public List<Project> GetPagedList(int page, int pageSize)
-    {
-        throw new NotImplementedException();
-    }
-
     public void Insert(Project project)
     {
         _db.Projects.Add(project);

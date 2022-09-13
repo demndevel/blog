@@ -4,7 +4,7 @@ using Blog.Repository.Interfaces;
 
 namespace Blog.Repository.Implementations;
 
-public sealed class NoteRepository : IRepository<Note>
+public sealed class NoteRepository : INoteRepository
 {
     private readonly ApplicationContext _db;
 
