@@ -1,6 +1,6 @@
+using Blog.Configs;
 using Blog.Models;
-using Blog.Repository.Implementations;
-using Blog.Repository.Interfaces;
+using Blog.Unit_of_work;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 
@@ -9,17 +9,12 @@ namespace Blog.Controllers;
 public class AdminController : ControllerBase
 {
     private readonly ILogger<HomeController> _logger;
-    private readonly IRepository<Note> _notesRepository;
-    private readonly IRepository<Tag> _tagsRepository;
-    private readonly IRepository<Project> _projectsRepository;
     private readonly TokenConfig _config;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public AdminController(ILogger<HomeController> logger, IOptions<TokenConfig> config,  ApplicationContext db)
+    public AdminController(ILogger<HomeController> logger, IOptions<TokenConfig> config, IUnitOfWork unitOfWork)
     {
-        _notesRepository = new NoteRepository(db);
-        _tagsRepository = new TagRepository(db);
-        _projectsRepository = new ProjectRepository(db);
-
+        _unitOfWork = unitOfWork;
         _logger = logger;
         _config = config.Value;
     }
@@ -39,8 +34,8 @@ public class AdminController : ControllerBase
             Date = DateTime.UtcNow
         };
 
-        _notesRepository.Insert(note);
-        _notesRepository.Save();
+        _unitOfWork.Notes.Insert(note);
+        _unitOfWork.Save();
 
         return Ok();
     }
@@ -59,8 +54,8 @@ public class AdminController : ControllerBase
             Tags = ParseTags(tags)
         };
         
-        _notesRepository.Update(id, newNote);
-        _notesRepository.Save();
+        _unitOfWork.Notes.Update(id, newNote);
+        _unitOfWork.Save();        
 
         return Ok();
     }
@@ -71,9 +66,9 @@ public class AdminController : ControllerBase
         if (!CheckPassword(password))
             return Forbid();
 
-        _notesRepository.Delete(_notesRepository.GetById(id));
-        _notesRepository.Save();
-        
+        _unitOfWork.Notes.Delete(_unitOfWork.Notes.GetById(id));
+        _unitOfWork.Save();
+
         return Ok();
     }
 
@@ -90,8 +85,8 @@ public class AdminController : ControllerBase
             Link = link
         };
         
-        _projectsRepository.Insert(project);
-        _projectsRepository.Save();
+        _unitOfWork.Projects.Insert(project);
+        _unitOfWork.Save();
                 
         return Ok();
     }
@@ -101,14 +96,14 @@ public class AdminController : ControllerBase
     {
         if (!CheckPassword(password))
             return Forbid();
-
-        _projectsRepository.Update(id, new Project
+        
+        _unitOfWork.Projects.Update(id, new Project
         {
             Title = title,
             ShortDescription = description,
             Link = link
         });
-        _projectsRepository.Save();
+        _unitOfWork.Save();
         
         return Ok();
     }
@@ -119,8 +114,8 @@ public class AdminController : ControllerBase
         if (!CheckPassword(password))
             return Forbid();
 
-        _projectsRepository.Delete(_projectsRepository.GetById(id));
-        _projectsRepository.Save();
+        _unitOfWork.Projects.Delete(_unitOfWork.Projects.GetById(id));
+        _unitOfWork.Save();
         
         return Ok();
     }
@@ -131,11 +126,11 @@ public class AdminController : ControllerBase
         if (!CheckPassword(password))
             return Forbid();
 
-        _tagsRepository.Insert(new Tag
+        _unitOfWork.Tags.Insert(new Tag
         {
             Text = text
         });
-        _tagsRepository.Save();
+        _unitOfWork.Save();
         
         return Ok();
     }
@@ -146,11 +141,11 @@ public class AdminController : ControllerBase
         if (!CheckPassword(password))
             return Forbid();
         
-        _tagsRepository.Update(id, new Tag
+        _unitOfWork.Tags.Update(id, new Tag
         {
             Text = text
         });
-        _tagsRepository.Save();
+        _unitOfWork.Save();
         
         return Ok();
     }
@@ -161,8 +156,8 @@ public class AdminController : ControllerBase
         if (!CheckPassword(password))
             return Forbid();
         
-        _tagsRepository.Delete(_tagsRepository.GetById(id));
-        _tagsRepository.Save();
+        _unitOfWork.Tags.Delete(_unitOfWork.Tags.GetById(id));
+        _unitOfWork.Save();
 
         return Ok();
     }

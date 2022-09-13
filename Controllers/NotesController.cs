@@ -1,6 +1,4 @@
-using Blog.Models;
-using Blog.Repository.Implementations;
-using Blog.Repository.Interfaces;
+using Blog.Unit_of_work;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Blog.Controllers;
@@ -8,14 +6,12 @@ namespace Blog.Controllers;
 public class NotesController : Controller
 {
     private readonly ILogger<HomeController> _logger;
-    private readonly IRepository<Note> _notesRepository;
-    private readonly IRepository<Tag> _tagsRepository;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public NotesController(ILogger<HomeController> logger, ApplicationContext context)
+    public NotesController(IUnitOfWork unitOfWork, ILogger<HomeController> logger)
     {
-        _notesRepository = new NoteRepository(context);
-        _tagsRepository = new TagRepository(context);
         _logger = logger;
+        _unitOfWork = unitOfWork;
     }
     
     public IActionResult BlogByPage(int page)
@@ -23,10 +19,10 @@ public class NotesController : Controller
         if (page < 1)
             return View("Blog");
             
-        var notesCount = _notesRepository.GetCount();
-        var notes = _notesRepository.GetPagedList(page, 10);
-        var tags = _tagsRepository.GetArray();
-
+        var notesCount = _unitOfWork.Notes.GetCount();
+        var notes = _unitOfWork.Notes.GetPagedList(page, 10);
+        var tags = _unitOfWork.Tags.GetArray();
+        
         ViewBag.notes = notes;
         ViewBag.tags = tags;
 
@@ -45,13 +41,13 @@ public class NotesController : Controller
     
     public IActionResult Note(int id)
     {
-        var note = _notesRepository.GetById(id);
+        var note = _unitOfWork.Notes.GetById(id);
         
         if (note is null)
             return NotFound();
         
         ViewBag.note = note;
-        ViewBag.tags =_tagsRepository.GetArray();
+        ViewBag.tags =_unitOfWork.Tags.GetArray();
         
         return View();
     }

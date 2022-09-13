@@ -1,8 +1,15 @@
 using Blog;
+using Blog.Configs;
+using Blog.Models;
+using Blog.Repository.Implementations;
+using Blog.Repository.Interfaces;
+using Blog.Unit_of_work;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 string? connection = builder.Configuration.GetConnectionString("DefaultConnection");
+
+#region SERVICES
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddLogging(loggingBuilder => {
@@ -13,6 +20,13 @@ builder.Services.Configure<HomeConfig>(builder.Configuration.GetSection("Home"))
 builder.Services.AddDbContext<ApplicationContext>(options => options.UseNpgsql(connection));
 builder.Services.AddMvc().AddXmlDataContractSerializerFormatters();
 builder.Services.AddMvc().AddXmlSerializerFormatters();
+
+
+builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
+
+
+
+#endregion
 
 var app = builder.Build();
 
@@ -54,12 +68,3 @@ app.MapControllerRoute(
     pattern: "/note/{id}", new {controller = "Notes", action = "Note"});
 
 app.Run();
-
-public class TokenConfig
-{
-    public string Token { get; set; } = "";
-}
-public class HomeConfig
-{
-    public string Text { get; set; } = "";
-}

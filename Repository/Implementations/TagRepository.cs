@@ -60,28 +60,4 @@ public sealed class TagRepository : ITagRepository
     {
         return _db.Notes.ToList().FindAll(note => CheckForTag(note, tag));
     }
-    
-    public void Save()
-    {
-        _db.SaveChanges();
-    }
-    
-    private bool _disposed = false;
-
-    private void Dispose(bool disposing)
-    {
-        if (!_disposed)
-        {
-            if(disposing)
-                _db.Dispose();
-        }
-
-        _disposed = true;
-    }
-
-    public void Dispose()
-    {
-        Dispose(true);
-        GC.SuppressFinalize(this);
-    }
 }

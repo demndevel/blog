@@ -52,28 +52,4 @@ public sealed class NoteRepository : IRepository<Note>
     {
         _db.Notes.Remove(_db.Notes.Find(note)!);
     }
-
-    public void Save()
-    {
-        _db.SaveChanges();
-    }
-    
-    private bool _disposed;
-
-    private void Dispose(bool disposing)
-    {
-        if (!_disposed)
-        {
-            if(disposing)
-                _db.Dispose();
-        }
-
-        _disposed = true;
-    }
-
-    public void Dispose()
-    {
-        Dispose(true);
-        GC.SuppressFinalize(this);
-    }
 }

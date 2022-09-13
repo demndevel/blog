@@ -2,7 +2,7 @@ using Blog.Models;
 
 namespace Blog.Repository.Interfaces;
 
-public interface IRepository<T> : IDisposable
+public interface IRepository<T>
 {
     T GetById(long id);
     long GetCount();
@@ -11,5 +11,4 @@ public interface IRepository<T> : IDisposable
     void Update(long id, T entity);
     void Delete(T entity);
     T[] GetArray();
-    void Save();
 }

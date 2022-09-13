@@ -1,5 +1,4 @@
-﻿using Blog.Models;
-using Blog.Pagination;
+﻿using Blog.Configs;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 
@@ -8,12 +7,10 @@ namespace Blog.Controllers;
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
-    private readonly ApplicationContext _db;
     private readonly HomeConfig _config;
 
-    public HomeController(ILogger<HomeController> logger, IOptions<HomeConfig> config,  ApplicationContext db)
+    public HomeController(ILogger<HomeController> logger, IOptions<HomeConfig> config)
     {
-        _db = db;
         _logger = logger;
         _config = config.Value;
     }
