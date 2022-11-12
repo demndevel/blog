@@ -1,16 +1,35 @@
-﻿@using System.Web
-@{
+﻿@{
     ViewData["Title"] = "Home";
     ViewData["CurrentPage"] = "index";
 }
 
-<main>
-    <h1>Home page</h1>
-    <hr>
-    <br>
+@* @Html.Raw(HttpUtility.HtmlDecode(ViewBag.text)) *@
 
-    @Html.Raw(HttpUtility.HtmlDecode(ViewBag.text))
-</main>
-<br>
-<br>
-<br>
+<h1>Home page</h1>
+<hr>
+<blockquote>
+    meow
+</blockquote>
+<p>
+    Hi. I'm demn. On the internet I am known as demn, demndev, demndevel or demonatidev
+    <br/><br/>
+    I am <code>0xF</code> y.o. Also im a beginner backend developer
+    <br/><br/>
+    I do some simple projects in C# (asp.net core)
+    <br/>
+</p>
+
+<ul>
+    <li>
+        <a href="https://github.com/demndevel">Github ⧉</a>
+    </li>
+    <li>
+        <a href="https://t.me/demndevel">Telegram ⧉</a>
+    </li>
+    <li>
+        <a href="https://discord.com/users/demndev#9257">Discord ⧉</a>
+    </li>
+</ul>
+<p>BTW this blog was redisigned</p>
+
+<hr/>

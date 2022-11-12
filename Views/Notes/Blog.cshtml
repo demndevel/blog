@@ -1,54 +1,38 @@
-@using Blog.Models
 @{
     ViewData["Title"] = "Blog";
     ViewData["CurrentPage"] = "blog";
 }
 
-<main>
-    <h1>Blog</h1>
+@model Blog.Models.BlogViewModel
+
+<h1>All posts</h1>
+<hr>
+  
+@foreach (var note in Model.Notes)
+{
+    <div>
+        <h3><a href="/note/@note.Id">@note.Title</a> ≈@(note.Text?.Split(' ', StringSplitOptions.RemoveEmptyEntries).Length / 200)m to read</h3>
+        <p>Tags: 
+            @foreach (var tag in note.Tags.Split(';'))
+            {
+                <a href="/tags">#@(tag+" ")</a>
+            }
+        </p>
+        <p>@note.ShortDescription</p>
+        <hr>
+    </div>
+}
+
+@if (ViewBag.previous != -1)
+{
+    <a href="/blog/@ViewBag.previous">← previous</a>
+}
+@if (ViewBag.next != -1)
+{
+    <span>&#13;</span>
+    <a href="/blog/@ViewBag.next">next →</a>
+}
+@if (ViewBag.next != -1 || ViewBag.previous != -1)
+{
     <hr>
-    <br>
-
-    @foreach(Note note in ViewBag.notes)
-    {
-        <div class="card">
-            <h3>
-                <a href="/note/@note.Id">@note.Title</a>
-            </h3>
-            <details>
-                <p>@note.Date.ToShortDateString() • @note.Text?.Length symbols</p>
-                @foreach(int tag in note.Tags)
-                {
-                    @foreach (Tag t in ViewBag.tags)
-                    {
-                        @if (t.Id == tag)
-                        {
-                            <a href="/tag/@t.Id" class="tag">@t.Text</a>
-                        }
-                    }
-                }
-            </details>
-            <h6></h6>
-            <p>@note.ShortDescription <a href="/note/@note.Id">Read more ➜</a></p>
-        </div>
-
-        <br>
-    }
-    <nav class="nav">
-        <div class="nav-left">
-            @if (ViewBag.previous != -1)
-            {
-                <a href="/blog/@ViewBag.previous" class="button outline">Previous</a>
-            }
-        </div>
-        <div class="nav-right">
-            @if (ViewBag.next != -1)
-            {
-                <a href="/blog/@ViewBag.next" class="button outline">Next</a>
-            }
-        </div>
-    </nav>
-</main>
-<br>
-<br>
-<br>
+}

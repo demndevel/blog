@@ -43,15 +43,15 @@ public sealed class TagRepository : ITagRepository
         _db.Tags.Remove(tag);
     }
 
-    private bool CheckForTag(Note note, int tag)
+    private bool CheckForTag(Note note, string tag)
     {
-        foreach (var t in note.Tags)
+        foreach (var t in note.Tags.Split(';'))
             if (t == tag)
                 return true;
         return false;
     }
 
-    public List<Note> GetNotesByTag(int tag)
+    public List<Note> GetNotesByTag(string tag)
     {
         return _db.Notes.ToList().FindAll(note => CheckForTag(note, tag));
     }

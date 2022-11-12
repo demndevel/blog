@@ -17,10 +17,8 @@ public class ProjectsController : Controller
     
     public IActionResult Projects()
     {
-        var projects = _projects.GetArray();
+        ProjectsViewModel vm = new() { Projects = _projects.GetArray()};
 
-        ViewBag.projects = projects;
-        
-        return View();
+        return View(vm);
     }
 }

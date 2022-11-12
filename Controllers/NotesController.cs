@@ -1,3 +1,4 @@
+using Blog.Models;
 using Blog.Repository.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -26,9 +27,6 @@ public class NotesController : Controller
         var notes = _notes.GetPagedList(page, 10);
         var tags = _tags.GetArray();
         
-        ViewBag.notes = notes;
-        ViewBag.tags = tags;
-
         if (page + 1 <= notesCount / 10 + 1)
             ViewBag.next = page + 1;
         else
@@ -39,7 +37,7 @@ public class NotesController : Controller
         else
             ViewBag.previous = -1;
         
-        return View("Blog");
+        return View("Blog", new BlogViewModel { Notes = notes, Tags = tags });
     }
     
     public IActionResult Note(int id)
@@ -49,6 +47,13 @@ public class NotesController : Controller
         ViewBag.note = note;
         ViewBag.tags = _tags.GetArray();
         
+        return View();
+    }
+    
+    public IActionResult Archive()
+    {
+        ViewBag.notes = _notes.GetArray();
+
         return View();
     }
 }

@@ -7,7 +7,7 @@ using Microsoft.Extensions.Options;
 
 namespace Blog.Controllers;
 
-public class AdminController : ControllerBase
+public class AdminController : Controller
 {
     private readonly ILogger<HomeController> _logger;
     private readonly TokenConfig _config;
@@ -19,16 +19,36 @@ public class AdminController : ControllerBase
     public AdminController(ILogger<HomeController> logger, IOptions<TokenConfig> config, INoteRepository notes, ITagRepository tags, IRepository<Project> projects, IUnitOfWork unitOfWork)
     {
         _logger = logger;
-        
         _config = config.Value;
-
         _notes = notes;
         _tags = tags;
         _projects = projects;
-
         _unitOfWork = unitOfWork;
     }
 
+    public IActionResult Admin()
+    {
+        return View();
+    }
+    
+    public IActionResult AdminPosts()
+    {
+        ViewBag.notes = _notes.GetArray();
+        return View();
+    }
+    
+    public IActionResult AdminProjects()
+    {
+        ViewBag.projects = _projects.GetArray();
+        return View();
+    }
+    
+    public IActionResult AdminTags()
+    {
+        ViewBag.tags = _tags.GetArray();
+        return View();
+    }
+    
     [HttpPost]
     public IActionResult CreateNote(string password, string title, string text, string tags, string shortDescription)
     {
@@ -40,7 +60,7 @@ public class AdminController : ControllerBase
             Title = title,
             Text = text,
             ShortDescription = shortDescription,
-            Tags = ParseTags(tags),
+            Tags = tags,
             Date = DateTime.UtcNow
         };
 
@@ -61,7 +81,7 @@ public class AdminController : ControllerBase
             Title = title,
             Text = text,
             ShortDescription = shortDescription,
-            Tags = ParseTags(tags)
+            Tags = tags
         };
         
         _notes.Update(id, newNote);
@@ -74,7 +94,7 @@ public class AdminController : ControllerBase
     public IActionResult DeleteNote(int id, string password)
     {
         if (!CheckPassword(password))
-            return Forbid();
+            return BadRequest();
 
         _notes.Delete(_notes.GetById(id));
         _unitOfWork.Save();
@@ -172,18 +192,6 @@ public class AdminController : ControllerBase
         return Ok();
     }
     
-    private List<int> ParseTags(string tags)
-    {
-        List<int> parsedTags = new List<int>();
-
-        foreach (var tag in tags.Split(';'))
-        {
-            parsedTags.Add(Convert.ToInt32(tag));            
-        }
-
-        return parsedTags;
-    }
-
     private bool CheckPassword(string password)
     {
         if (password == _config.Token)

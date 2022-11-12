@@ -26,7 +26,7 @@ public class TagsController : Controller
     {
         var tag = _tags.GetById(id);
         var tags = _tags.GetArray();
-        var notes = _tags.GetNotesByTag(id);
+        var notes = _tags.GetNotesByTag(tag.Text);
         
         ViewBag.tag = tag;
         ViewBag.tags = tags;

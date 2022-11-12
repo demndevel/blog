@@ -4,39 +4,27 @@
     ViewData["CurrentPage"] = "tags";
 }
 
-<main>
-    <h1>Notes with "@ViewBag.tag.Text" tag</h1>
-    <hr>
-    <br>
+<h1>Notes with "@ViewBag.tag.Text" tag</h1>
+<hr>
+<br>
 
-    @foreach (Note note in ViewBag.notes)
+@foreach (Note note in ViewBag.notes)
+{
+    <h3>
+        <a href="/note/@note.Id">@note.Title</a> <span>@note.Date.ToShortDateString()</span>
+    </h3>
+    @foreach (string tag in note.Tags.Split(';'))
     {
-        <div class="card">
-            <h3>
-                <a href="/note/@note.Id">@note.Title</a>
-            </h3>
-            <details>
-                <p>@note.Date.ToShortDateString() • @note.Text?.Length symbols</p>
-                @foreach (int tag in note.Tags)
-                {
-                    @foreach (Tag t in ViewBag.tags)
-                    {
-                        @if (t.Id == tag)
-                        {
-                            <a href="/tag/@t.Id" class="tag">@t.Text</a>
-                        }
-                    }
-                }
-            </details>
-            <h6></h6>
-            <p>
-                @note.ShortDescription <a href="/note/@note.Id">Read more ➜</a>
-            </p>
-        </div>
-
-        <br>
+        @foreach (Tag t in ViewBag.tags)
+        {
+            @if (t.Text == tag)
+            {
+                <a href="/tag/@t.Id" class="tag">#@t.Text</a>
+            }
+        }
     }
-</main>
-<br>
-<br>
-<br>
+    <p>
+        @note.ShortDescription <a href="/note/@note.Id">➜</a>
+    </p>
+    <hr/>
+}

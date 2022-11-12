@@ -6,15 +6,12 @@
 <main>
     <h1>Tags</h1>
     <hr>
-    <br>
 
     <ul>
         @foreach (var tag in ViewBag.tags)
         {
-            <li><a href="/tag/@tag.Id">@tag.Text</a></li>
+            <li><a href="/tag/@tag.Id">#@tag.Text</a></li>
         }
     </ul>    
 </main>
-<br>
-<br>
-<br>
+<hr/>

@@ -1,26 +1,22 @@
 @using Blog.Models
+@model ProjectsViewModel
 @{
     ViewData["Title"] = "Projects";
     ViewData["CurrentPage"] = "projects";
 }
 
-<main>
-    <h1>Demn's projects</h1>
-    <hr>
-    <br>
+<h1>Projects</h1>
+<hr>
 
-    @foreach (Project project in ViewBag.projects)
-    {
-        <div class="card">
-            <h3><a href="@project.Id"></a>@project.Title</h3> <!-- id to search just for me -->
-            <p>
-                @project.ShortDescription <a href="@project.Link">Link ⧉</a>
-            </p>
-        </div>
-
-        <br>
-    }
-</main>
-<br>
-<br>
-<br>
+@foreach (Project project in Model.Projects)
+{
+    <div>
+        <h3>
+            @project.Title
+        </h3>
+        <p>
+            @project.ShortDescription <a href="@project.Link">Link ⧉</a>
+        </p>
+        <hr>
+    </div>
+}

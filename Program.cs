@@ -17,7 +17,7 @@ builder.Services.AddLogging(loggingBuilder => {
 });
 builder.Services.Configure<TokenConfig>(builder.Configuration.GetSection("AdminToken"));
 builder.Services.Configure<HomeConfig>(builder.Configuration.GetSection("Home"));
-builder.Services.AddDbContext<ApplicationContext>(options => options.UseNpgsql(connection));
+builder.Services.AddDbContext<ApplicationContext>(options => options.UseSqlite(connection));
 builder.Services.AddMvc().AddXmlDataContractSerializerFormatters();
 builder.Services.AddMvc().AddXmlSerializerFormatters();
 
@@ -26,8 +26,6 @@ builder.Services.AddScoped<ITagRepository, TagRepository>();
 builder.Services.AddScoped<IRepository<Project>, ProjectRepository>();
 
 builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
-
-
 
 #endregion
 
@@ -51,6 +49,21 @@ app.MapControllerRoute(
 app.MapControllerRoute(
     name: "rss",
     pattern: "/rss", new {controller = "Rss", action = "Rss"});
+app.MapControllerRoute(
+    name: "admin",
+    pattern: "/admin", new {controller = "Admin", action = "Admin"});
+app.MapControllerRoute(
+    name: "admin",
+    pattern: "/admin/posts", new {controller = "Admin", action = "AdminPosts"});
+app.MapControllerRoute(
+    name: "admin",
+    pattern: "/admin/projects", new {controller = "Admin", action = "AdminProjects"});
+app.MapControllerRoute(
+    name: "admin",
+    pattern: "/admin/tags", new {controller = "Admin", action = "AdminTags"});
+app.MapControllerRoute(
+    name: "archive",
+    pattern: "/archive", new {controller = "Notes", action = "Archive"});
 app.MapControllerRoute(
     name: "blog",
     pattern: "/blog", new {controller = "Notes", action = "BlogByPage", page = 1});

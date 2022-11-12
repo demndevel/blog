@@ -1,34 +1,33 @@
 @using Blog.Models
 @using System.Web
+@using Markdig
 @{
     Note note = ViewBag.note;
     ViewData["Title"] = note.Title;
     ViewData["CurrentPage"] = "blog";
+    var pipeline = new MarkdownPipelineBuilder().UseAdvancedExtensions().Build();
+    ViewData["HideLayout"] = true;
 }
 
-<main>
-    <h1>@note.Title</h1>
-    <hr>
-    <br>
+<head>
+    <link rel="stylesheet" href="/css/prettify.css"/>
+</head>
 
-    <details>
-        <p>@note.Date.ToShortDateString() • @note.Text?.Length symbols</p>
-        @foreach (int tag in note.Tags)
-        {
-            @foreach (Tag t in ViewBag.tags)
-            {
-                @if (t.Id == tag)
-                {
-                    <a href="/tag/@t.Id" class="tag">@t.Text</a>
-                }
-            }
-        }
-    </details>
+<main>
+    <h1 class="center">@note.Title</h1>
     
-    <br>
+    <h6 class="center-info">@note.Date.ToString("dd MMMM, yyyy") · By Demn</h6>
+    <h6 class="sc">@(note.Text?.Split(' ', StringSplitOptions.RemoveEmptyEntries).Length / 200)m to read</h6>
+    <br/>
+    <hr class="styled-hr"/>
+    <br/>
     
-    @Html.Raw(HttpUtility.HtmlDecode(note.Text))
+    <p class="attention-grabber">
+        @note.ShortDescription
+    </p>
+    
+    @Html.Raw(HttpUtility.HtmlDecode(Markdown.ToHtml(note.Text!, pipeline)))
 </main>
-<br>
-<br>
-<br>
+<hr/>
+<script src="/js/addClasses.js"></script>
+<script src="/js/run_prettify.js"></script>

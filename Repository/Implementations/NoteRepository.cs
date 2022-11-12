@@ -50,6 +50,6 @@ public sealed class NoteRepository : INoteRepository
 
     public void Delete(Note note)
     {
-        _db.Notes.Remove(_db.Notes.Find(note)!);
+        _db.Notes.Remove(_db.Notes.Find(note.Id)!);
     }
 }

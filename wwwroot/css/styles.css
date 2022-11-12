@@ -1,0 +1,50 @@
+.center-info {
+    text-align: center;
+    line-height: 1.6rem;
+    font-size: 1.4em;
+    font-style: italic;
+    font-weight: lighter;
+}
+
+p, li {
+    font-size: 1.3em;
+    line-height: 1.6em;
+    hyphens: auto;
+}
+
+strong {
+    font-weight: bold;
+}
+
+.sc {
+    font-size: 1.2em;
+    letter-spacing: .15em;
+    text-transform: lowercase;
+    text-align: center;
+    font-style: normal;
+    font-weight: lighter;
+}
+
+.center {
+    text-align: center;
+}
+
+.styled-hr {
+    border: 0 none currentcolor;
+    border-image-repeat: stretch;
+    border-image-source: none;
+    border-image-width: 1;
+    text-align: center;
+    color: #222;
+    font-size: 1.4em;
+}
+
+.styled-hr::before {
+    content: "···";
+    letter-spacing: 1em;
+    text-align: center;
+}
+
+.attention-grabber {
+    font-size: 1.6rem;
+}

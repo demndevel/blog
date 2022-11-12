@@ -1,0 +1,42 @@
+@using Blog.Models
+@{
+    ViewData["Title"] = "Admin";
+}
+
+<h1>Posts</h1>
+<hr>
+
+<input placeholder="password" id="password"/>
+
+<table>
+    <tr>
+        <th>Title and ID</th>
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
+    @foreach (Note note in ViewBag.notes)
+    {
+        <tr>
+            <td>@note.Id | @note.Title</td>
+            <td><button>something</button></td>
+            <td><button onclick="deletePost(@note.Id)">Delete</button></td>
+        </tr>
+    }
+</table>
+        
+<hr/>
+
+<script>
+let password = document.getElementById("password").value;
+
+async function deletePost(id) {
+    let data = new FormData();
+    data.append('id', id);
+    data.append('password', document.getElementById('password').value);
+    
+    await fetch('/admin/deleteNote', {
+       method: 'POST',
+       body: data 
+    });
+}
+</script>

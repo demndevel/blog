@@ -4,5 +4,5 @@ namespace Blog.Repository.Interfaces;
 
 public interface ITagRepository : IRepository<Tag>
 {
-    List<Note> GetNotesByTag(int tag);
+    List<Note> GetNotesByTag(string tag);
 }
