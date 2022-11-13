@@ -48,3 +48,20 @@ strong {
 .attention-grabber {
     font-size: 1.6rem;
 }
+
+@media (prefers-color-scheme: dark) {
+    .styled-hr {
+        color: whitesmoke;
+    }
+}
+
+@media (max-width: 700px) {
+    .attention-grabber {
+        font-size: 1.4rem;
+    }
+    p, li {
+        font-size: 1.1em;
+        line-height: 1.5em;
+        hyphens: auto;
+    }
+}
