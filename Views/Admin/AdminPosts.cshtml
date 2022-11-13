@@ -26,6 +26,24 @@
         
 <hr/>
 
+<form method="POST" action="/admin/editNote">
+    <input type="text" placeholder="pASSword" class="feedback-input" name="password">
+    <br/>
+    <input type="text" placeholder="ID" class="feedback-input" name="id">
+    <br/>
+    <input type="text" placeholder="Title" class="feedback-input" name="title">
+    <br/>
+    <input type="text" placeholder="Tags, e.g. 1;2;3;4" class="feedback-input" name="tags">
+    <br/>
+    <textarea placeholder="Description" class="feedback-input" name="shortDescription"></textarea>
+    <br/>
+    <textarea placeholder="Text of the post in markdown" class="feedback-input" name="text"></textarea>
+    <br/>
+    <input type="submit"/>
+</form>
+
+<hr/>
+
 <script>
 let password = document.getElementById("password").value;
 
