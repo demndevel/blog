@@ -1,6 +1,7 @@
 using Blog.Models;
 using Blog.Pagination;
 using Blog.Repository.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace Blog.Repository.Implementations;
 
@@ -13,19 +14,19 @@ public sealed class NoteRepository : INoteRepository
         _db = db;
     }
 
-    public Note GetById(long id)
+    public async Task<Note> GetById(long id)
     {
-        return _db.Notes.FirstOrDefault(n => n.Id == id)!;
+        return (await _db.Notes.FirstOrDefaultAsync(n => n.Id == id))!;
     }
 
-    public Note[] GetArray()
+    public async Task<Note[]> GetArray()
     {
-        return _db.Notes.ToArray();
+        return await _db.Notes.ToArrayAsync();
     }
     
-    public long GetCount()
+    public async Task<long> GetCount()
     {
-        return _db.Notes.Count();
+        return await _db.Notes.CountAsync();
     }
 
     public List<Note> GetPagedList(int page, int pageSize = 10)

@@ -1,5 +1,6 @@
 using Blog.Models;
 using Blog.Repository.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace Blog.Repository.Implementations;
 
@@ -12,19 +13,19 @@ public sealed class TagRepository : ITagRepository
         _db = db;
     }
     
-    public Tag GetById(long id)
+    public async Task<Tag> GetById(long id)
     {
-        return _db.Tags.FirstOrDefault(t => t.Id == id)!;
+        return (await _db.Tags.FirstOrDefaultAsync(n => n.Id == id))!;
     }
 
-    public long GetCount()
+    public async Task<long> GetCount()
     {
-        return _db.Tags.Count();
+        return await _db.Tags.CountAsync();
     }
     
-    public Tag[] GetArray()
+    public async Task<Tag[]> GetArray()
     {
-        return _db.Tags.ToArray();
+        return await _db.Tags.ToArrayAsync();
     }
 
     public void Insert(Tag tag)

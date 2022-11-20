@@ -15,9 +15,9 @@ public class ProjectsController : Controller
         _logger = logger;
     }
     
-    public IActionResult Projects()
+    public async Task<IActionResult> Projects()
     {
-        ProjectsViewModel vm = new() { Projects = _projects.GetArray()};
+        ProjectsViewModel vm = new() { Projects = await _projects.GetArray()};
 
         return View(vm);
     }

@@ -12,9 +12,9 @@ public sealed class UnitOfWork : IUnitOfWork
         _context = context;
     }
 
-    public Task Save(CancellationToken ctx = default)
+    public Task Save(CancellationToken ct = default)
     {
-        _context.SaveChangesAsync(ctx);
+        _context.SaveChangesAsync(ct);
         return Task.CompletedTask;
     }
 }

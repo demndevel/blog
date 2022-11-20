@@ -31,21 +31,21 @@ public class AdminController : Controller
         return View();
     }
     
-    public IActionResult AdminPosts()
+    public async Task<IActionResult> AdminPosts()
     {
-        ViewBag.notes = _notes.GetArray();
+        ViewBag.notes = await _notes.GetArray();
         return View();
     }
     
-    public IActionResult AdminProjects()
+    public async Task<IActionResult> AdminProjects()
     {
-        ViewBag.projects = _projects.GetArray();
+        ViewBag.projects = await _projects.GetArray();
         return View();
     }
     
-    public IActionResult AdminTags()
+    public async Task<IActionResult> AdminTags()
     {
-        ViewBag.tags = _tags.GetArray();
+        ViewBag.tags = await _tags.GetArray();
         return View();
     }
     
@@ -91,13 +91,13 @@ public class AdminController : Controller
     }
 
     [HttpPost]
-    public IActionResult DeleteNote(int id, string password)
+    public async Task<IActionResult> DeleteNote(int id, string password)
     {
         if (!CheckPassword(password))
             return BadRequest();
 
-        _notes.Delete(_notes.GetById(id));
-        _unitOfWork.Save();
+        _notes.Delete(await _notes.GetById(id));
+        await _unitOfWork.Save();
 
         return Ok();
     }
@@ -139,13 +139,13 @@ public class AdminController : Controller
     }
     
     [HttpPost]
-    public IActionResult DeleteProject(int id, string password)
+    public async Task<IActionResult> DeleteProject(int id, string password)
     {
         if (!CheckPassword(password))
             return Forbid();
 
-        _projects.Delete(_projects.GetById(id));
-        _unitOfWork.Save();
+        _projects.Delete(await _projects.GetById(id));
+        await _unitOfWork.Save();
         
         return Ok();
     }
@@ -181,13 +181,13 @@ public class AdminController : Controller
     }
     
     [HttpPost]
-    public IActionResult DeleteTag(int id, string password)
+    public async Task<IActionResult> DeleteTag(int id, string password)
     {
         if (!CheckPassword(password))
             return Forbid();
         
-        _tags.Delete(_tags.GetById(id));
-        _unitOfWork.Save();
+        _tags.Delete(await _tags.GetById(id));
+        await _unitOfWork.Save();
 
         return Ok();
     }

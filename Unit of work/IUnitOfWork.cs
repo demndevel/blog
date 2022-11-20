@@ -5,5 +5,5 @@ namespace Blog.Unit_of_work;
 
 public interface IUnitOfWork
 {
-    public Task Save(CancellationToken ctx = default);
+    public Task Save(CancellationToken ct = default);
 }

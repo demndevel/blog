@@ -1,5 +1,6 @@
 using Blog.Models;
 using Blog.Repository.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace Blog.Repository.Implementations;
 
@@ -12,14 +13,14 @@ public class ProjectRepository : IRepository<Project>
         _db = db;
     }
     
-    public Project GetById(long id)
+    public async Task<Project> GetById(long id)
     {
-        return _db.Projects.FirstOrDefault(p => p.Id == id)!;
+        return (await _db.Projects.FirstOrDefaultAsync(p => p.Id == id))!;
     }
 
-    public long GetCount()
+    public async Task<long> GetCount()
     {
-        return _db.Projects.Count();
+        return await _db.Projects.CountAsync();
     }
 
     public void Insert(Project project)
@@ -41,8 +42,8 @@ public class ProjectRepository : IRepository<Project>
         _db.Projects.Remove(project);
     }
 
-    public Project[] GetArray()
+    public async Task<Project[]> GetArray()
     {
-        return _db.Projects.ToArray();
+        return await _db.Projects.ToArrayAsync();
     }
 }

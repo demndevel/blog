@@ -18,14 +18,14 @@ public class NotesController : Controller
         _tags = tags;
     }
     
-    public IActionResult BlogByPage(int page)
+    public async Task<IActionResult> BlogByPage(int page)
     {
         if (page < 1)
             return View("Blog");
             
-        var notesCount = _notes.GetCount();
+        var notesCount = await _notes.GetCount();
         var notes = _notes.GetPagedList(page, 10);
-        var tags = _tags.GetArray();
+        var tags = await _tags.GetArray();
         
         if (page + 1 <= notesCount / 10 + 1)
             ViewBag.next = page + 1;
@@ -40,19 +40,19 @@ public class NotesController : Controller
         return View("Blog", new BlogViewModel { Notes = notes, Tags = tags });
     }
     
-    public IActionResult Note(int id)
+    public async Task<IActionResult> Note(int id)
     {
-        var note = _notes.GetById(id);
+        var note = await _notes.GetById(id);
 
         ViewBag.note = note;
-        ViewBag.tags = _tags.GetArray();
+        ViewBag.tags = await _tags.GetArray();
         
         return View();
     }
     
-    public IActionResult Archive()
+    public async Task<IActionResult> Archive()
     {
-        ViewBag.notes = _notes.GetArray();
+        ViewBag.notes = await _notes.GetArray();
 
         return View();
     }

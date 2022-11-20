@@ -13,19 +13,19 @@ public class TagsController : Controller
         _logger = logger;
     }
     
-    public IActionResult Tags()
+    public async Task<IActionResult> Tags()
     {
-        var tags = _tags.GetArray();
+        var tags = await _tags.GetArray();
         
         ViewBag.tags = tags;
         
         return View();
     }
     
-    public IActionResult Tag(int id)
+    public async Task<IActionResult> Tag(int id)
     {
-        var tag = _tags.GetById(id);
-        var tags = _tags.GetArray();
+        var tag = await _tags.GetById(id);
+        var tags = await _tags.GetArray();
         var notes = _tags.GetNotesByTag(tag.Text);
         
         ViewBag.tag = tag;

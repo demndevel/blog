@@ -14,9 +14,9 @@ public class RssController : Controller
     {
         _notes = notes;
     }
-    public ContentResult Rss()
+    public async Task<ContentResult> Rss()
     {
-        var lastTenNotes = _notes.GetArray().OrderByDescending(n => n.Date).Take(10).ToList();
+        var lastTenNotes = (await _notes.GetArray()).OrderByDescending(n => n.Date).Take(10).ToList();
         var xml = BuildXmlFeed($"{Request.Scheme}://{Request.Host}", lastTenNotes);
         return new ContentResult
         {
