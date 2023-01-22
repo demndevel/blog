@@ -40,47 +40,7 @@ if (!app.Environment.IsDevelopment())
 app.UseStaticFiles();
 app.UseHttpsRedirection();
 app.UseRouting();
-
 app.UseAuthorization();
-
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}");
-app.MapControllerRoute(
-    name: "rss",
-    pattern: "/rss", new {controller = "Rss", action = "Rss"});
-app.MapControllerRoute(
-    name: "admin",
-    pattern: "/admin", new {controller = "Admin", action = "Admin"});
-app.MapControllerRoute(
-    name: "admin",
-    pattern: "/admin/posts", new {controller = "Admin", action = "AdminPosts"});
-app.MapControllerRoute(
-    name: "admin",
-    pattern: "/admin/projects", new {controller = "Admin", action = "AdminProjects"});
-app.MapControllerRoute(
-    name: "admin",
-    pattern: "/admin/tags", new {controller = "Admin", action = "AdminTags"});
-app.MapControllerRoute(
-    name: "archive",
-    pattern: "/archive", new {controller = "Notes", action = "Archive"});
-app.MapControllerRoute(
-    name: "blog",
-    pattern: "/blog", new {controller = "Notes", action = "BlogByPage", page = 1});
-app.MapControllerRoute(
-    name: "blog",
-    pattern: "/blog/{page}", new {controller = "Notes", action = "BlogByPage"});
-app.MapControllerRoute(
-    name: "projects",
-    pattern: "/projects", new {controller = "Projects", action = "Projects"});
-app.MapControllerRoute(
-    name: "tags",
-    pattern: "/tags", new {controller = "Tags", action = "Tags"});
-app.MapControllerRoute(
-    name: "tag",
-    pattern: "/tag/{id}", new {controller = "Tags", action = "Tag"});
-app.MapControllerRoute(
-    name: "note",
-    pattern: "/note/{id}", new {controller = "Notes", action = "Note"});
+app.MapControllers();
 
 app.Run();
