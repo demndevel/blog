@@ -4,6 +4,7 @@ using Web.Repository.Interfaces;
 
 namespace Web.Controllers;
 
+[Route("note")]
 public class NotesController : Controller
 {
     private readonly ILogger<HomeController> _logger;
@@ -17,11 +18,18 @@ public class NotesController : Controller
         _notes = notes;
         _tags = tags;
     }
+
+    [Route("/blog")]
+    public IActionResult Blog()
+    {
+        return RedirectToAction("BlogByPage", routeValues: new { page = 1 });
+    }
     
+    [Route("/blog/{page:int}")]
     public async Task<IActionResult> BlogByPage(int page)
     {
         if (page < 1)
-            return View("Blog");
+            return RedirectToAction("BlogByPage", routeValues: new { page = 1 });
             
         var notesCount = await _notes.GetCount();
         var notes = _notes.GetPagedList(page, 10);
@@ -40,6 +48,7 @@ public class NotesController : Controller
         return View("Blog", new BlogViewModel { Notes = notes, Tags = tags });
     }
     
+    [Route("{id:int}")]
     public async Task<IActionResult> Note(int id)
     {
         var note = await _notes.GetById(id);
@@ -50,6 +59,7 @@ public class NotesController : Controller
         return View();
     }
     
+    [Route("/archive")]
     public async Task<IActionResult> Archive()
     {
         ViewBag.notes = await _notes.GetArray();

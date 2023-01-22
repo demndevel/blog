@@ -15,6 +15,7 @@ public class HomeController : Controller
         _config = config.Value;
     }
 
+    [Route("/")]
     public IActionResult Index()
     {
         ViewBag.text = _config.Text;

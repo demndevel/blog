@@ -5,6 +5,7 @@ using Web.Repository.Interfaces;
 
 namespace Web.Controllers;
 
+[Route("projects")]
 public class ProjectsController : Controller
 {
     private readonly ILogger<HomeController> _logger;
@@ -16,6 +17,7 @@ public class ProjectsController : Controller
         _logger = logger;
     }
     
+    [Route("")]
     public async Task<IActionResult> Projects()
     {
         ProjectsViewModel vm = new() { Projects = await _projects.GetArray()};

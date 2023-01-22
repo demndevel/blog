@@ -7,6 +7,7 @@ using Web.Unit_of_work;
 
 namespace Web.Controllers;
 
+[Route("admin")]
 public class AdminController : Controller
 {
     private readonly ILogger<HomeController> _logger;
@@ -26,30 +27,34 @@ public class AdminController : Controller
         _unitOfWork = unitOfWork;
     }
 
+    [Route("")]
     public IActionResult Admin()
     {
         return View();
     }
     
+    [Route("posts")]
     public async Task<IActionResult> AdminPosts()
     {
         ViewBag.notes = await _notes.GetArray();
         return View();
     }
     
+    [Route("projects")]
     public async Task<IActionResult> AdminProjects()
     {
         ViewBag.projects = await _projects.GetArray();
         return View();
     }
     
+    [Route("tags")]
     public async Task<IActionResult> AdminTags()
     {
         ViewBag.tags = await _tags.GetArray();
         return View();
     }
     
-    [HttpPost]
+    [HttpPost("createNote")]
     public IActionResult CreateNote(string password, string title, string text, string tags, string shortDescription)
     {
         if (!CheckPassword(password))
@@ -70,7 +75,7 @@ public class AdminController : Controller
         return Ok();
     }
 
-    [HttpPost]
+    [HttpPost("editNote")]
     public IActionResult EditNote(int id, string shortDescription, string title, string text, string tags, string password)
     {
         if (!CheckPassword(password))
@@ -90,7 +95,7 @@ public class AdminController : Controller
         return Ok();
     }
 
-    [HttpPost]
+    [HttpPost("deleteNote")]
     public async Task<IActionResult> DeleteNote(int id, string password)
     {
         if (!CheckPassword(password))
@@ -102,7 +107,7 @@ public class AdminController : Controller
         return Ok();
     }
 
-    [HttpPost]
+    [HttpPost("addProject")]
     public IActionResult AddProject(string password, string title, string description, string link)
     {
         if (!CheckPassword(password))
@@ -121,7 +126,7 @@ public class AdminController : Controller
         return Ok();
     }
     
-    [HttpPost]
+    [HttpPost("editProject")]
     public IActionResult EditProject(int id, string password, string title, string description, string link)
     {
         if (!CheckPassword(password))
@@ -138,7 +143,7 @@ public class AdminController : Controller
         return Ok();
     }
     
-    [HttpPost]
+    [HttpPost("deleteProject")]
     public async Task<IActionResult> DeleteProject(int id, string password)
     {
         if (!CheckPassword(password))
@@ -150,7 +155,7 @@ public class AdminController : Controller
         return Ok();
     }
 
-    [HttpPost]
+    [HttpPost("addTag")]
     public IActionResult AddTag(string text, string password)
     {
         if (!CheckPassword(password))
@@ -165,7 +170,7 @@ public class AdminController : Controller
         return Ok();
     }
     
-    [HttpPost]
+    [HttpPost("editTag")]
     public IActionResult EditTag(int id, string text, string password)
     {
         if (!CheckPassword(password))
@@ -180,7 +185,7 @@ public class AdminController : Controller
         return Ok();
     }
     
-    [HttpPost]
+    [HttpPost("deleteTag")]
     public async Task<IActionResult> DeleteTag(int id, string password)
     {
         if (!CheckPassword(password))

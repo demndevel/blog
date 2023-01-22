@@ -14,6 +14,8 @@ public class RssController : Controller
     {
         _notes = notes;
     }
+    
+    [Route("/rss")]
     public async Task<ContentResult> Rss()
     {
         var lastTenNotes = (await _notes.GetArray()).OrderByDescending(n => n.Date).Take(10).ToList();
