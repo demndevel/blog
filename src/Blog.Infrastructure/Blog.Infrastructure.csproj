@@ -4,6 +4,7 @@
         <TargetFramework>net7.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <RootNamespace>Infrastructure</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
@@ -13,8 +14,8 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Application\Application.csproj" />
-      <ProjectReference Include="..\Domain\Domain.csproj" />
+      <ProjectReference Include="..\Blog.Application\Blog.Application.csproj" />
+      <ProjectReference Include="..\Blog.Domain\Blog.Domain.csproj" />
     </ItemGroup>
 
 </Project>
