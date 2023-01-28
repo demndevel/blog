@@ -1,5 +1,6 @@
 using Application.Interfaces.Persistence;
 using Domain.Entities;
+using Domain.Entities.Tag;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Persistence;

@@ -21,15 +21,8 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Features\Notes\Queries" />
-      <Folder Include="Features\Projects\Commands" />
-      <Folder Include="Features\Projects\Queries" />
-      <Folder Include="Features\Tags\Commands" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <PackageReference Include="FluentValidation" Version="11.4.0" />
-      <PackageReference Include="FluentValidation.AspNetCore" Version="11.2.2" />
+      <PackageReference Include="Mapster" Version="7.3.0" />
+      <PackageReference Include="Scrutor" Version="4.2.0" />
     </ItemGroup>
 
 </Project>
