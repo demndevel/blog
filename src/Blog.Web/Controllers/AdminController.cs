@@ -13,16 +13,14 @@ public class AdminController : Controller
     private readonly ILogger<HomeController> _logger;
     private readonly TokenConfig _config;
     private readonly INoteRepository _notes;
-    private readonly ITagRepository _tags;
     private readonly IRepository<Project> _projects;
     private readonly IUnitOfWork _unitOfWork;
     
-    public AdminController(ILogger<HomeController> logger, IOptions<TokenConfig> config, INoteRepository notes, ITagRepository tags, IRepository<Project> projects, IUnitOfWork unitOfWork)
+    public AdminController(ILogger<HomeController> logger, IOptions<TokenConfig> config, INoteRepository notes, IRepository<Project> projects, IUnitOfWork unitOfWork)
     {
         _logger = logger;
         _config = config.Value;
         _notes = notes;
-        _tags = tags;
         _projects = projects;
         _unitOfWork = unitOfWork;
     }
@@ -46,14 +44,7 @@ public class AdminController : Controller
         ViewBag.projects = await _projects.GetArray();
         return View();
     }
-    
-    [Route("tags")]
-    public async Task<IActionResult> AdminTags()
-    {
-        ViewBag.tags = await _tags.GetArray();
-        return View();
-    }
-    
+
     [HttpPost("createNote")]
     public IActionResult CreateNote(string password, string title, string text, string tags, string shortDescription)
     {
@@ -155,48 +146,6 @@ public class AdminController : Controller
         return Ok();
     }
 
-    [HttpPost("addTag")]
-    public IActionResult AddTag(string text, string password)
-    {
-        if (!CheckPassword(password))
-            return Forbid();
-
-        _tags.Insert(new Tag
-        {
-            Text = text
-        });
-        _unitOfWork.Save();
-        
-        return Ok();
-    }
-    
-    [HttpPost("editTag")]
-    public IActionResult EditTag(int id, string text, string password)
-    {
-        if (!CheckPassword(password))
-            return Forbid();
-        
-        _tags.Update(id, new Tag
-        {
-            Text = text
-        });
-        _unitOfWork.Save();
-        
-        return Ok();
-    }
-    
-    [HttpPost("deleteTag")]
-    public async Task<IActionResult> DeleteTag(int id, string password)
-    {
-        if (!CheckPassword(password))
-            return Forbid();
-        
-        _tags.Delete(await _tags.GetById(id));
-        await _unitOfWork.Save();
-
-        return Ok();
-    }
-    
     private bool CheckPassword(string password)
     {
         if (password == _config.Token)

@@ -1,4 +1,5 @@
 using Domain.Entities;
+using Domain.Entities.Tag;
 using Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Web.Repository.Interfaces;

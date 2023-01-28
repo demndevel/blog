@@ -1,4 +1,5 @@
 using Domain.Entities;
+using Domain.Entities.Tag;
 
 namespace Web.Models;
 

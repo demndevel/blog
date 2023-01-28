@@ -1,4 +1,4 @@
-namespace Domain.Entities;
+namespace Domain.Entities.Tag;
 
 public class Tag
 {

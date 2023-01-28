@@ -1,5 +1,6 @@
+using Application.Features.Tags.Queries.GetAllTags;
+using Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Web.Repository.Interfaces;
 
 namespace Web.Controllers;
 
@@ -7,34 +8,26 @@ namespace Web.Controllers;
 public class TagsController : Controller
 {
     private readonly ILogger<HomeController> _logger;
-    private readonly ITagRepository _tags;
-    public TagsController(ILogger<HomeController> logger, ITagRepository tags)
+    private readonly IQueryHandler<GetAllTagsQuery, GetAllTagsQueryResult> _queryHandler;
+    
+    public TagsController(ILogger<HomeController> logger, IQueryHandler<GetAllTagsQuery, GetAllTagsQueryResult> queryHandler)
     {
-        _tags = tags;
         _logger = logger;
+        _queryHandler = queryHandler;
     }
     
     [Route("")]
-    public async Task<IActionResult> Tags()
+    public async Task<IActionResult> Tags(CancellationToken ct)
     {
-        var tags = await _tags.GetArray();
+        var query = new GetAllTagsQuery();
+        var result = await _queryHandler.Handle(query, ct);
         
-        ViewBag.tags = tags;
-        
-        return View();
+        return View(model: result);
     }
 
     [Route("{id:int}")]
-    public async Task<IActionResult> Tag(int id)
+    public async Task<IActionResult> Tag(int id) // TODO: move this to the `NotesController`
     {
-        var tag = await _tags.GetById(id);
-        var tags = await _tags.GetArray();
-        var notes = _tags.GetNotesByTag(tag.Text);
-        
-        ViewBag.tag = tag;
-        ViewBag.tags = tags;
-        ViewBag.notes = notes;
-        
         return View();
     }
 }

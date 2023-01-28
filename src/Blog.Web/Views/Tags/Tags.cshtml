@@ -1,3 +1,5 @@
+@model Application.Features.Tags.Queries.GetAllTags.GetAllTagsQueryResult
+
 @{
     ViewData["Title"] = "Tags";
     ViewData["CurrentPage"] = "tags";
@@ -8,9 +10,9 @@
     <hr>
 
     <ul>
-        @foreach (var tag in ViewBag.tags)
+        @foreach (var tag in Model.Tags)
         {
-            <li><a href="/tag/@tag.Id">#@tag.Text</a></li>
+            <li><a href="/tag/@tag.Text">#@tag.Text</a></li>
         }
     </ul>    
 </main>
