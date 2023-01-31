@@ -1,5 +1,6 @@
 using Application.Interfaces.Persistence;
-using Domain.Entities;
+using Domain.Entities.Note;
+using Domain.Entities.Project;
 using Domain.Entities.Tag;
 using Microsoft.EntityFrameworkCore;
 

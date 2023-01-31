@@ -1,6 +1,9 @@
+using Application.Features.Notes.Queries.GetNote;
+using Application.Features.Notes.Queries.GetNoteArchive;
+using Application.Features.Notes.Queries.GetNotesByPage;
+using Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Web.Models;
-using Web.Repository.Interfaces;
 
 namespace Web.Controllers;
 
@@ -8,62 +11,64 @@ namespace Web.Controllers;
 public class NotesController : Controller
 {
     private readonly ILogger<HomeController> _logger;
-    private readonly INoteRepository _notes;
-    private readonly ITagRepository _tags;
-    
-    public NotesController(INoteRepository notes, ITagRepository tags, ILogger<HomeController> logger)
+
+    private readonly IQueryHandler<GetNotesByPageQuery, GetNotesByPageQueryResult> _getNotesByPage;
+    private readonly IQueryHandler<GetNoteQuery, GetNoteQueryResult> _getNote;
+    private readonly IQueryHandler<GetNoteArchiveQuery, GetNoteArchiveQueryResult> _getNoteArchive;
+
+    public NotesController(ILogger<HomeController> logger, IQueryHandler<GetNoteQuery, GetNoteQueryResult> getNote, IQueryHandler<GetNoteArchiveQuery, GetNoteArchiveQueryResult> getNoteArchive, IQueryHandler<GetNotesByPageQuery, GetNotesByPageQueryResult> getNotesByPage)
     {
         _logger = logger;
-
-        _notes = notes;
-        _tags = tags;
+        _getNote = getNote;
+        _getNoteArchive = getNoteArchive;
+        _getNotesByPage = getNotesByPage;
     }
 
     [Route("/blog")]
     public IActionResult Blog()
     {
-        return RedirectToAction("BlogByPage", routeValues: new { page = 1 });
+        return RedirectToAction("BlogByPage", routeValues: new { page = 0 });
     }
     
     [Route("/blog/{page:int}")]
     public async Task<IActionResult> BlogByPage(int page)
     {
-        if (page < 1)
-            return RedirectToAction("BlogByPage", routeValues: new { page = 1 });
-            
-        var notesCount = await _notes.GetCount();
-        var notes = _notes.GetPagedList(page, 10);
-        var tags = await _tags.GetArray();
+        if (page < 0)
+            return RedirectToAction("BlogByPage", routeValues: new { page = 0 });
         
-        if (page + 1 <= notesCount / 10 + 1)
+        var query = new GetNotesByPageQuery { Page = page };
+        var result = await _getNotesByPage.Handle(query, CancellationToken.None);
+        
+        var noteCount = result.Notes.Count;
+        
+        if (page + 1 <= noteCount / 10 + 1)
             ViewBag.next = page + 1;
         else
             ViewBag.next = -1;
         
-        if (page - 1 > 0)
+        if (page - 1 > -1)
             ViewBag.previous = page - 1;
         else
             ViewBag.previous = -1;
         
-        return View("Blog", new BlogViewModel { Notes = notes, Tags = tags });
+        return View("Blog", new BlogViewModel { Notes = result.Notes });
     }
     
     [Route("{id:int}")]
     public async Task<IActionResult> Note(int id)
     {
-        var note = await _notes.GetById(id);
-
-        ViewBag.note = note;
-        ViewBag.tags = await _tags.GetArray();
+        var query = new GetNoteQuery { Id = id };
+        var result = await _getNote.Handle(query, CancellationToken.None);
         
-        return View();
+        return View(model: new NoteViewModel { Note = result });
     }
     
     [Route("/archive")]
     public async Task<IActionResult> Archive()
     {
-        ViewBag.notes = await _notes.GetArray();
+        var query = new GetNoteArchiveQuery();
+        var result = await _getNoteArchive.Handle(query, CancellationToken.None);
 
-        return View();
+        return View(model: result);
     }
 }

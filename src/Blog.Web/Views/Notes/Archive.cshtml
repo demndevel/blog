@@ -1,8 +1,11 @@
 @using System.Globalization
-@using Domain.Entities
+@using Application.Features.Notes.Queries.GetNoteArchive
+
+@model Application.Features.Notes.Queries.GetNoteArchive.GetNoteArchiveQueryResult
+
 @{
     ViewData["Title"] = "Archive";
-    var notes = new List<Note>(ViewBag.notes);
+    var notes = (List<GetNoteArchiveQueryResultItem>)Model.Notes;
     notes.Sort((x, y) => DateTime.Compare(x.Date, y.Date));
     var currentYear = 2022;
     var currentMonth = 2022;
@@ -18,8 +21,6 @@
         currentYear = note.Date.Year;
         <h2>@currentYear</h2>
     }
-
-    <!-- Sorry for this code :(  -->
     
     if (note.Date.Month != currentMonth)
     {

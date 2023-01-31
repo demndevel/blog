@@ -1,5 +1,8 @@
 @using Microsoft.AspNetCore.Mvc.TagHelpers
-@using Domain.Entities
+@using Domain.Entities.Note
+
+@model Application.Features.Notes.Queries.GetAllNotes.GetAllNotesQueryResult
+
 @{
     ViewData["Title"] = "Admin";
 }
@@ -15,7 +18,7 @@
         <th>Edit</th>
         <th>Delete</th>
     </tr>
-    @foreach (Note note in ViewBag.notes)
+    @foreach (var note in Model.Notes)
     {
         <tr>
             <td>@note.Id | @note.Title</td>

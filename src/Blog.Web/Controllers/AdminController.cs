@@ -1,7 +1,14 @@
-using Domain.Entities;
+using Application.Features.Notes.Commands.CreateNote;
+using Application.Features.Notes.Commands.DeleteNote;
+using Application.Features.Notes.Commands.UpdateNote;
+using Application.Features.Notes.Queries.GetAllNotes;
+using Application.Helpers;
+using Application.Interfaces;
+using Domain.Entities.Project;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Web.Configs;
+using Web.Models;
 using Web.Repository.Interfaces;
 using Web.Unit_of_work;
 
@@ -12,17 +19,25 @@ public class AdminController : Controller
 {
     private readonly ILogger<HomeController> _logger;
     private readonly TokenConfig _config;
-    private readonly INoteRepository _notes;
     private readonly IRepository<Project> _projects;
     private readonly IUnitOfWork _unitOfWork;
     
-    public AdminController(ILogger<HomeController> logger, IOptions<TokenConfig> config, INoteRepository notes, IRepository<Project> projects, IUnitOfWork unitOfWork)
+    private readonly ICommandHandler<CreateNoteCommand, long> _createNoteCommand;
+    private readonly ICommandHandler<DeleteNoteCommand, Unit> _deleteNoteCommand;
+    private readonly ICommandHandler<UpdateNoteCommand, Unit> _updateNoteCommand;
+
+    private readonly IQueryHandler<GetAllNotesQuery, GetAllNotesQueryResult> _getAllNotesQueryHandler;
+
+    public AdminController(ILogger<HomeController> logger, IOptions<TokenConfig> config, IRepository<Project> projects, IUnitOfWork unitOfWork, ICommandHandler<CreateNoteCommand, long> createNoteCommand, ICommandHandler<DeleteNoteCommand, Unit> deleteNoteCommand, ICommandHandler<UpdateNoteCommand, Unit> updateNoteCommand, IQueryHandler<GetAllNotesQuery, GetAllNotesQueryResult> getAllNotesQueryHandler)
     {
         _logger = logger;
         _config = config.Value;
-        _notes = notes;
         _projects = projects;
         _unitOfWork = unitOfWork;
+        _createNoteCommand = createNoteCommand;
+        _deleteNoteCommand = deleteNoteCommand;
+        _updateNoteCommand = updateNoteCommand;
+        _getAllNotesQueryHandler = getAllNotesQueryHandler;
     }
 
     [Route("")]
@@ -34,8 +49,10 @@ public class AdminController : Controller
     [Route("posts")]
     public async Task<IActionResult> AdminPosts()
     {
-        ViewBag.notes = await _notes.GetArray();
-        return View();
+        var command = new GetAllNotesQuery();
+        var result = await _getAllNotesQueryHandler.Handle(command, CancellationToken.None);
+        
+        return View(model: result);
     }
     
     [Route("projects")]
@@ -45,56 +62,42 @@ public class AdminController : Controller
         return View();
     }
 
-    [HttpPost("createNote")]
-    public IActionResult CreateNote(string password, string title, string text, string tags, string shortDescription)
+    [HttpPost("createNote")] // todo: authorization
+    public async Task<IActionResult> CreateNote([FromForm] CreateNoteModel model)
     {
-        if (!CheckPassword(password))
-            return Forbid();
-
-        var note = new Note
+        var command = new CreateNoteCommand
         {
-            Title = title,
-            Text = text,
-            ShortDescription = shortDescription,
-            Tags = tags,
-            Date = DateTime.UtcNow
+            Title = model.Title,
+            Text = model.Text,
+            Tags = model.Tags,
+            ShortDescription = model.ShortDescription
         };
 
-        _notes.Insert(note);
-        _unitOfWork.Save();
-
-        return Ok();
+        return Ok(await _createNoteCommand.Handle(command, CancellationToken.None));
     }
 
     [HttpPost("editNote")]
-    public IActionResult EditNote(int id, string shortDescription, string title, string text, string tags, string password)
+    public async Task<IActionResult> EditNote([FromForm] EditNoteModel model)
     {
-        if (!CheckPassword(password))
-            return Forbid();
-
-        var newNote = new Note
+        var cmd = new UpdateNoteCommand
         {
-            Title = title,
-            Text = text,
-            ShortDescription = shortDescription,
-            Tags = tags
+            Id = model.Id,
+            Title = model.Title,
+            Text = model.Text,
+            Tags = model.Tags,
+            ShortDescription = model.ShortDescription
         };
         
-        _notes.Update(id, newNote);
-        _unitOfWork.Save();        
-
+        await _updateNoteCommand.Handle(cmd, CancellationToken.None);
+        
         return Ok();
     }
 
     [HttpPost("deleteNote")]
-    public async Task<IActionResult> DeleteNote(int id, string password)
+    public async Task<IActionResult> DeleteNote([FromForm] int id)
     {
-        if (!CheckPassword(password))
-            return BadRequest();
-
-        _notes.Delete(await _notes.GetById(id));
-        await _unitOfWork.Save();
-
+        var cmd = new DeleteNoteCommand { Id = id };
+        await _deleteNoteCommand.Handle(cmd, CancellationToken.None);
         return Ok();
     }
 

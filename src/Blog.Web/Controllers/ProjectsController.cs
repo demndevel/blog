@@ -1,4 +1,4 @@
-using Domain.Entities;
+using Domain.Entities.Project;
 using Microsoft.AspNetCore.Mvc;
 using Web.Models;
 using Web.Repository.Interfaces;

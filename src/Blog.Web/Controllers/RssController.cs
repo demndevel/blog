@@ -1,25 +1,28 @@
 using System.Globalization;
 using System.Xml;
-using Domain.Entities;
+using Application.Features.Notes.Queries.GetNotesByPage;
+using Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Web.Repository.Interfaces;
 
 namespace Web.Controllers;
 
 public class RssController : Controller
 {
-    private readonly INoteRepository _notes;
-    
-    public RssController(INoteRepository notes)
+    private readonly IQueryHandler<GetNotesByPageQuery, GetNotesByPageQueryResult> _getNotesByPage;
+
+    public RssController(IQueryHandler<GetNotesByPageQuery, GetNotesByPageQueryResult> getNotesByPage)
     {
-        _notes = notes;
+        _getNotesByPage = getNotesByPage;
     }
-    
+
     [Route("/rss")]
     public async Task<ContentResult> Rss()
     {
-        var lastTenNotes = (await _notes.GetArray()).OrderByDescending(n => n.Date).Take(10).ToList();
-        var xml = BuildXmlFeed($"{Request.Scheme}://{Request.Host}", lastTenNotes);
+        var query = new GetNotesByPageQuery { Page = 0 };
+        var result = await _getNotesByPage.Handle(query, CancellationToken.None);
+
+        var lastTenNotes = result.Notes;
+        var xml = BuildXmlFeed($"https://demns.space", lastTenNotes); // TODO: host variable in appsettings.json
         return new ContentResult
         {
             ContentType = "application/xml",
@@ -29,10 +32,10 @@ public class RssController : Controller
     }
 
 
-    private string BuildXmlFeed(string url, List<Note> notes)
+    private string BuildXmlFeed(string url, IList<GetNotesByPageQueryResultItem> notes)
     {
-        StringWriter parent = new StringWriter();
-        using (XmlTextWriter writer = new XmlTextWriter(parent))
+        var parent = new StringWriter();
+        using (var writer = new XmlTextWriter(parent))
         {
             writer.WriteStartElement("rss");
             writer.WriteAttributeString("version", "2.0");
@@ -40,7 +43,7 @@ public class RssController : Controller
 
             writer.WriteStartElement("channel");
 
-            writer.WriteElementString("title", $"demn's blog");
+            writer.WriteElementString("title", "Demn's blog");
             writer.WriteElementString("link", url);
             writer.WriteElementString("ttl", "60");
 

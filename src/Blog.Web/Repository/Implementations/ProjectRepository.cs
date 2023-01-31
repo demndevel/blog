@@ -1,4 +1,4 @@
-using Domain.Entities;
+using Domain.Entities.Project;
 using Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Web.Repository.Interfaces;

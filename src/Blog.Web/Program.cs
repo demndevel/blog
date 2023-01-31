@@ -3,7 +3,7 @@ using Web.Configs;
 using Web.Repository.Implementations;
 using Web.Repository.Interfaces;
 using Web.Unit_of_work;
-using Domain.Entities;
+using Domain.Entities.Project;
 using Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -24,7 +24,6 @@ builder.Services.Configure<HomeConfig>(builder.Configuration.GetSection("Home"))
 builder.Services.AddMvc().AddXmlDataContractSerializerFormatters();
 builder.Services.AddMvc().AddXmlSerializerFormatters();
 
-builder.Services.AddScoped<INoteRepository, NoteRepository>();
 builder.Services.AddScoped<IRepository<Project>, ProjectRepository>();
 
 builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();

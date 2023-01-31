@@ -11,7 +11,7 @@
 @foreach (var note in Model.Notes)
 {
     <div>
-        <h3><a href="/note/@note.Id">@note.Title</a> ≈@(note.Text?.Split(' ', StringSplitOptions.RemoveEmptyEntries).Length / 200)m to read</h3>
+        <h3><a href="/note/@note.Id">@note.Title</a> ≈@(note.Text.Split(' ', StringSplitOptions.RemoveEmptyEntries).Length / 200)m to read</h3>
         <p>Tags: 
             @foreach (var tag in note.Tags.Split(';'))
             {

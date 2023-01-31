@@ -1,5 +1,5 @@
 using Application.Interfaces.Persistence;
-using Domain.Entities;
+using Domain.Entities.Note;
 using Domain.Entities.Tag;
 using Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
@@ -9,6 +9,11 @@ namespace Blog.Tests.Helpers;
 public static class TestDbContext
 {
     public const int FirstTagId = 1;
+    public const int FirstNoteId = 1;
+    public const string FirstNoteTitle = "first note title";
+    public const string FirstNoteText = "first note text";
+    public const string FirstNoteDescription = "first note description";
+    public const string FirstNoteTags = "common-tag;tag-lying-in-first-note";
     
     public static IApplicationContext Create()
     {
@@ -45,7 +50,23 @@ public static class TestDbContext
 
     private static void AddNotes(ApplicationContext db)
     {
-        
+        db.Notes.AddRange(new Note
+        {
+            Id = FirstNoteId,
+            Text = FirstNoteText,
+            Title = FirstNoteTitle,
+            Tags = FirstNoteTags,
+            Date = DateTime.Now,
+            ShortDescription = FirstNoteDescription
+        }, new Note
+        {
+            Id = 2,
+            Text = "SecondNoteText",
+            Title = "Second note title",
+            Tags = "common-tag;tag-lying-in-second-note",
+            Date = DateTime.Now,
+            ShortDescription = "Second note description"
+        });
     }
 
     private static void AddProjects(ApplicationContext db)

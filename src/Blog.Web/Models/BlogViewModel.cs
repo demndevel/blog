@@ -1,10 +1,8 @@
-using Domain.Entities;
-using Domain.Entities.Tag;
+using Application.Features.Notes.Queries.GetNotesByPage;
 
 namespace Web.Models;
 
 public class BlogViewModel
 {
-    public List<Note> Notes { get; set; } = null!;
-    public Tag[] Tags { get; set; } = null!;
+    public IList<GetNotesByPageQueryResultItem> Notes { get; set; } = null!;
 }
