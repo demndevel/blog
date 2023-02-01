@@ -1,0 +1,29 @@
+@model Web.Models.SearchNotesByTagsViewModel
+
+@{
+    ViewData["Title"] = "Search notes by tags";
+    ViewData["CurrentPage"] = "tags";
+}
+
+<h1>Search results</h1>
+<hr>
+
+<p>Inluded: @Model.IncludedTags.Aggregate((a, b) => a + ", " + b)</p>
+<p>Excluded: @Model.ExcludedTags.Aggregate((a, b) => a + ", " + b)</p>
+
+<hr/>
+
+@foreach (var note in Model.Notes)
+{
+    <h3>
+        <a href="/note/@note.Id">@note.Title</a> <span>@note.Date.ToShortDateString()</span>
+    </h3>
+    @foreach (var tag in note.Tags.Split(';'))
+    {
+        <a href="/tag/@tag" class="tag">#@tag</a>
+    }
+    <p>
+        @note.ShortDescription <a href="/note/@note.Id">➜</a>
+    </p>
+    <hr/>
+}

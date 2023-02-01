@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+        <LangVersion>11</LangVersion>
+        <RootNamespace>Web</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Folder Include="wwwroot" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Markdig" Version="0.30.4" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.10" />
+      <PackageReference Include="NReco.Logging.File" Version="1.1.5" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Blog.Application\Blog.Application.csproj" />
+      <ProjectReference Include="..\Blog.Domain\Blog.Domain.csproj" />
+      <ProjectReference Include="..\Blog.Infrastructure\Blog.Infrastructure.csproj" />
+    </ItemGroup>
+
+</Project>

@@ -1,0 +1,25 @@
+@model Web.Models.NotesByTagViewModel
+
+@{
+    ViewData["Title"] = $"\"{Model.Tag}\" tag";
+    ViewData["CurrentPage"] = "tags";
+}
+
+<h1>Notes with "@Model.Tag" tag</h1>
+<hr>
+<br>
+
+@foreach (var note in Model.Notes)
+{
+    <h3>
+        <a href="/note/@note.Id">@note.Title</a> <span>@note.Date.ToShortDateString()</span>
+    </h3>
+    @foreach (var tag in note.Tags.Split(';'))
+    {
+        <a href="/tag/@tag" class="tag">#@tag</a>
+    }
+    <p>
+        @note.ShortDescription <a href="/note/@note.Id">➜</a>
+    </p>
+    <hr/>
+}

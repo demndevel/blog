@@ -1,0 +1,47 @@
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+
+@model Application.Features.Projects.Queries.GetAllProjects.GetAllProjectsQueryResult
+
+@{
+    ViewData["Title"] = "Admin";
+}
+
+<h1>Projects</h1>
+<hr>
+
+<table>
+    <tr>
+        <th>Title and ID</th>
+        <th>Delete</th>
+    </tr>
+    @foreach (var p in Model.Projects)
+    {
+        <tr>
+            <td>@p.Id | @p.Title</td>
+            <td><button onclick="deleteProject(@p.Id)">Delete</button></td>
+        </tr>
+    }
+</table>
+
+<form method="POST" action="/admin/addProject">
+    <input placeholder="title" name="title"/>
+    <input placeholder="description" name="description"/>
+    <input placeholder="link" name="link"/>
+    <input type="submit"/>
+</form>
+
+<hr/>
+
+<script>
+async function deleteProject(id) {
+    let data = new FormData();
+    data.append('id', id);
+    
+    await fetch('/admin/deleteProject', {
+       method: 'POST',
+       body: data 
+    });
+}
+</script>
+
+<hr/>

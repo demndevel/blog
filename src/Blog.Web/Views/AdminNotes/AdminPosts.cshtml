@@ -1,0 +1,56 @@
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+
+@model Application.Features.Notes.Queries.GetAllNotes.GetAllNotesQueryResult
+
+@{
+    ViewData["Title"] = "Admin";
+}
+
+<h1>Posts</h1>
+<hr>
+
+<table>
+    <tr>
+        <th>Title and ID</th>
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
+    @foreach (var note in Model.Notes)
+    {
+        <tr>
+            <td>@note.Id | @note.Title</td>
+            <td><button>something</button></td>
+            <td><button onclick="deletePost(@note.Id)">Delete</button></td>
+        </tr>
+    }
+</table>
+        
+<hr/>
+
+<form method="POST" action="/admin/editNote">
+    <input type="text" placeholder="ID" class="feedback-input" name="id">
+    <br/>
+    <input type="text" placeholder="Title" class="feedback-input" name="title">
+    <br/>
+    <input type="text" placeholder="Tags, e.g. 1;2;3;4" class="feedback-input" name="tags">
+    <br/>
+    <textarea placeholder="Description" class="feedback-input" name="shortDescription"></textarea>
+    <br/>
+    <textarea placeholder="Text of the post in markdown" class="feedback-input" name="text"></textarea>
+    <br/>
+    <input type="submit"/>
+</form>
+
+<hr/>
+
+<script>
+async function deletePost(id) {
+    let data = new FormData();
+    data.append('id', id);
+    
+    await fetch('/admin/deleteNote', {
+       method: 'POST',
+       body: data 
+    });
+}
+</script>

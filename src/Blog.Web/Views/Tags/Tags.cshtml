@@ -1,0 +1,27 @@
+@model Application.Features.Tags.Queries.GetAllTags.GetAllTagsQueryResult
+
+@{
+    ViewData["Title"] = "Tags";
+    ViewData["CurrentPage"] = "tags";
+}
+
+<main>
+    <h1>Tags</h1>
+    <hr/>
+
+    <form method="post" action="search">
+        <input type="text" name="includedTags" placeholder="Included tags. E.g.: tag1;tag3;tag5" />
+        <input type="text" name="excludedTags" placeholder="Excluded tags. E.g.: tag2;tag4;tag6" />
+        <input type="submit" value="Search" />
+    </form>
+    
+    <hr/>
+    
+    <ul>
+        @foreach (var tag in Model.Tags)
+        {
+            <li><a href="/tag/@tag.Text">#@tag.Text</a></li>
+        }
+    </ul>    
+</main>
+<hr/>

@@ -1,0 +1,21 @@
+@model Application.Features.Projects.Queries.GetAllProjects.GetAllProjectsQueryResult
+@{
+    ViewData["Title"] = "Projects";
+    ViewData["CurrentPage"] = "projects";
+}
+
+<h1>Projects</h1>
+<hr>
+
+@foreach (var project in Model.Projects)
+{
+    <div>
+        <h3>
+            @project.Title
+        </h3>
+        <p>
+            @project.ShortDescription <a href="@project.Link">Link ⧉</a>
+        </p>
+        <hr>
+    </div>
+}
