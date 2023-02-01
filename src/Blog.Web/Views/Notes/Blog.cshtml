@@ -15,7 +15,7 @@
         <p>Tags: 
             @foreach (var tag in note.Tags.Split(';'))
             {
-                <a href="/tags">#@(tag+" ")</a>
+                <a href="/tag/@tag">#@(tag+" ")</a>
             }
         </p>
         <p>@note.ShortDescription</p>

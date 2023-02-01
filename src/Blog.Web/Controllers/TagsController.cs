@@ -24,10 +24,4 @@ public class TagsController : Controller
         
         return View(model: result);
     }
-
-    [Route("{id:int}")]
-    public async Task<IActionResult> Tag(int id) // TODO: move this to the `NotesController`
-    {
-        return View();
-    }
 }
