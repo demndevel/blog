@@ -1,9 +1,5 @@
 using Application;
 using Web.Configs;
-using Web.Repository.Implementations;
-using Web.Repository.Interfaces;
-using Web.Unit_of_work;
-using Domain.Entities.Project;
 using Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -23,10 +19,6 @@ builder.Services.Configure<TokenConfig>(builder.Configuration.GetSection("AdminT
 builder.Services.Configure<HomeConfig>(builder.Configuration.GetSection("Home"));
 builder.Services.AddMvc().AddXmlDataContractSerializerFormatters();
 builder.Services.AddMvc().AddXmlSerializerFormatters();
-
-builder.Services.AddScoped<IRepository<Project>, ProjectRepository>();
-
-builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 
 #endregion
 

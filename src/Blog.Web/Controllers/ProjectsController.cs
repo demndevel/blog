@@ -1,9 +1,6 @@
 using Application.Features.Projects.Queries.GetAllProjects;
 using Application.Interfaces;
-using Domain.Entities.Project;
 using Microsoft.AspNetCore.Mvc;
-using Web.Models;
-using Web.Repository.Interfaces;
 
 namespace Web.Controllers;
 
