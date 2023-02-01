@@ -1,8 +1,7 @@
-namespace Domain.Entities.Project;
+namespace Application.Features.Projects.Commands.CreateProject;
 
-public class Project
+public class CreateProjectCommand
 {
-    public long Id { get; set; }
     public string Title { get; set; } = null!;
     public string ShortDescription { get; set; } = null!;
     public string Link { get; set; } = null!;

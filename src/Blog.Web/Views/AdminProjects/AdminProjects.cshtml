@@ -1,5 +1,7 @@
-@using Domain.Entities.Project
 @using Microsoft.AspNetCore.Mvc.TagHelpers
+
+@model Application.Features.Projects.Queries.GetAllProjects.GetAllProjectsQueryResult
+
 @{
     ViewData["Title"] = "Admin";
 }
@@ -14,7 +16,7 @@
         <th>Title and ID</th>
         <th>Delete</th>
     </tr>
-    @foreach (Project p in ViewBag.projects)
+    @foreach (var p in Model.Projects)
     {
         <tr>
             <td>@p.Id | @p.Title</td>

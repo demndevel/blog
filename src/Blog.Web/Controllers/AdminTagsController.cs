@@ -7,13 +7,13 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Web.Controllers;
 
-public class TagsAdminController : Controller
+public class AdminTagsController : Controller
 {
     private readonly IQueryHandler<GetAllTagsQuery,GetAllTagsQueryResult> _getAllTagsHandler;
     private readonly ICommandHandler<CreateTagCommand, int> _createTagHandler;
     private readonly ICommandHandler<DeleteTagCommand, Unit> _deleteTagHandler;
 
-    public TagsAdminController(IQueryHandler<GetAllTagsQuery, GetAllTagsQueryResult> getAllTagsHandler, ICommandHandler<CreateTagCommand, int> createTagHandler, ICommandHandler<DeleteTagCommand, Unit> deleteTagHandler)
+    public AdminTagsController(IQueryHandler<GetAllTagsQuery, GetAllTagsQueryResult> getAllTagsHandler, ICommandHandler<CreateTagCommand, int> createTagHandler, ICommandHandler<DeleteTagCommand, Unit> deleteTagHandler)
     {
         _getAllTagsHandler = getAllTagsHandler;
         _createTagHandler = createTagHandler;

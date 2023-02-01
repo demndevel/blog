@@ -1,5 +1,4 @@
-@using Domain.Entities.Project
-@model Web.Models.ProjectsViewModel
+@model Application.Features.Projects.Queries.GetAllProjects.GetAllProjectsQueryResult
 @{
     ViewData["Title"] = "Projects";
     ViewData["CurrentPage"] = "projects";
@@ -8,7 +7,7 @@
 <h1>Projects</h1>
 <hr>
 
-@foreach (Project project in Model.Projects)
+@foreach (var project in Model.Projects)
 {
     <div>
         <h3>

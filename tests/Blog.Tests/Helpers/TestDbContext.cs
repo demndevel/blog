@@ -1,5 +1,6 @@
 using Application.Interfaces.Persistence;
 using Domain.Entities.Note;
+using Domain.Entities.Project;
 using Domain.Entities.Tag;
 using Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
@@ -14,6 +15,7 @@ public static class TestDbContext
     public const string FirstNoteText = "first note text";
     public const string FirstNoteDescription = "first note description";
     public const string FirstNoteTags = "common-tag;tag-lying-in-first-note";
+    public const int FirstProjectId = 1;
     
     public static IApplicationContext Create()
     {
@@ -71,7 +73,13 @@ public static class TestDbContext
 
     private static void AddProjects(ApplicationContext db)
     {
-        
+        db.Add(new Project
+        {
+            Id = FirstProjectId,
+            Title = "FirstProjectName",
+            ShortDescription = "FirstProjectDescription",
+            Link = "https://FirstProjectLink.com"
+        });
     }
 
     public static void Destroy(IApplicationContext db)
