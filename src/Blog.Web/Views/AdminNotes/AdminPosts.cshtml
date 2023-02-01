@@ -9,8 +9,6 @@
 <h1>Posts</h1>
 <hr>
 
-<input placeholder="password" id="password"/>
-
 <table>
     <tr>
         <th>Title and ID</th>
@@ -30,8 +28,6 @@
 <hr/>
 
 <form method="POST" action="/admin/editNote">
-    <input type="text" placeholder="pASSword" class="feedback-input" name="password">
-    <br/>
     <input type="text" placeholder="ID" class="feedback-input" name="id">
     <br/>
     <input type="text" placeholder="Title" class="feedback-input" name="title">
@@ -48,12 +44,9 @@
 <hr/>
 
 <script>
-let password = document.getElementById("password").value;
-
 async function deletePost(id) {
     let data = new FormData();
     data.append('id', id);
-    data.append('password', document.getElementById('password').value);
     
     await fetch('/admin/deleteNote', {
        method: 'POST',

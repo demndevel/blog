@@ -4,11 +4,13 @@ using Application.Features.Notes.Commands.UpdateNote;
 using Application.Features.Notes.Queries.GetAllNotes;
 using Application.Helpers;
 using Application.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Web.Models;
 
 namespace Web.Controllers;
 
+[Authorize]
 public class AdminNotesController : Controller
 {
     private readonly ICommandHandler<CreateNoteCommand, long> _createNoteCommand;
@@ -34,7 +36,7 @@ public class AdminNotesController : Controller
         return View(model: result);
     }
     
-    [HttpPost("/admin/createNote")] // todo: authorization
+    [HttpPost("/admin/createNote")]
     public async Task<IActionResult> CreateNote([FromForm] CreateNoteModel model)
     {
         var command = new CreateNoteCommand

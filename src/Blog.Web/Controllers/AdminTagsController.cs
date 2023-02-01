@@ -3,10 +3,12 @@ using Application.Features.Tags.Commands.DeleteTag;
 using Application.Features.Tags.Queries.GetAllTags;
 using Application.Helpers;
 using Application.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Web.Controllers;
 
+[Authorize]
 public class AdminTagsController : Controller
 {
     private readonly IQueryHandler<GetAllTagsQuery,GetAllTagsQueryResult> _getAllTagsHandler;

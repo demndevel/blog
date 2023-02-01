@@ -3,10 +3,12 @@ using Application.Features.Projects.Commands.DeleteProject;
 using Application.Features.Projects.Queries.GetAllProjects;
 using Application.Helpers;
 using Application.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Web.Controllers;
 
+[Authorize]
 public class AdminProjectsController : Controller
 {
     private readonly ICommandHandler<CreateProjectCommand, long> _createProject;
@@ -29,8 +31,8 @@ public class AdminProjectsController : Controller
         return View(model: result);
     }
 
-    [HttpPost("/admin/addProject")] // todo: authorization
-    public async Task<IActionResult> AddProject(string title, string description, string link) // todo: model
+    [HttpPost("/admin/addProject")]
+    public async Task<IActionResult> AddProject(string title, string description, string link)
     {
         var cmd = new CreateProjectCommand
         {

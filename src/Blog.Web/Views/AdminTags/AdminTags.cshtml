@@ -8,8 +8,6 @@
 <h1>Tags</h1>
 <hr>
 
-<input placeholder="password" id="password"/>
-
 <table>
     <tr>
         <th>Title and ID</th>
@@ -25,7 +23,6 @@
 </table>
 
 <form method="POST" action="/admin/addTag">
-    <input placeholder="password" name="password"/>
     <input placeholder="text" name="text"/>
     <input type="submit"/>
 </form>
@@ -33,12 +30,9 @@
 <hr/>
 
 <script>
-let password = document.getElementById("password").value;
-
 async function deleteTag(id) {
     let data = new FormData();
     data.append('id', id);
-    data.append('password', document.getElementById('password').value);
     
     await fetch('/admin/deleteTag', {
        method: 'POST',

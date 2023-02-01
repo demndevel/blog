@@ -1,0 +1,11 @@
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+
+<h2>Log in to admin page</h2>
+
+<form method="post" action="/admin/login">
+    <input placeholder="Password" name="password" type="text"/>
+    <input type="submit" value="Log in"/>
+</form>

@@ -9,8 +9,6 @@
 <h1>Projects</h1>
 <hr>
 
-<input placeholder="password" id="password"/>
-
 <table>
     <tr>
         <th>Title and ID</th>
@@ -26,7 +24,6 @@
 </table>
 
 <form method="POST" action="/admin/addProject">
-    <input placeholder="password" name="password"/>
     <input placeholder="title" name="title"/>
     <input placeholder="description" name="description"/>
     <input placeholder="link" name="link"/>
@@ -36,12 +33,9 @@
 <hr/>
 
 <script>
-let password = document.getElementById("password").value;
-
 async function deleteProject(id) {
     let data = new FormData();
     data.append('id', id);
-    data.append('password', document.getElementById('password').value);
     
     await fetch('/admin/deleteProject', {
        method: 'POST',
