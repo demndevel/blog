@@ -18,7 +18,7 @@
 <main>
     <h1 class="center">@Model.Note.Title</h1>
     
-    <h6 class="center-info">@Model.Note.Date.ToString("dd MMMM, yyyy", CultureInfo.GetCultureInfo("en-US")) · By Demn</h6>
+    <h6 class="center-info">@Model.Note.Date.ToString("dd MMMM, yyyy", CultureInfo.GetCultureInfo("en-US")) · @Model.Note.Views views</h6>
     <h6 class="sc">@(Model.Note.Text.Split(' ', StringSplitOptions.RemoveEmptyEntries).Length / 200)m to read</h6>
     <br/>
     <hr class="styled-hr"/>
