@@ -1,7 +1,9 @@
+using Application.Features.Notes.Commands.IncreaseViews;
 using Application.Features.Notes.Queries.GetNote;
 using Application.Features.Notes.Queries.GetNoteArchive;
 using Application.Features.Notes.Queries.GetNotesByPage;
 using Application.Features.Notes.Queries.GetNotesByTags;
+using Application.Helpers;
 using Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Web.Models;
@@ -18,13 +20,16 @@ public class NotesController : Controller
     private readonly IQueryHandler<GetNoteArchiveQuery, GetNoteArchiveQueryResult> _getNoteArchive;
     private readonly IQueryHandler<GetNotesByTagsQuery, GetNotesByTagsQueryResult> _getNotesByTags;
 
-    public NotesController(ILogger<HomeController> logger, IQueryHandler<GetNoteQuery, GetNoteQueryResult> getNote, IQueryHandler<GetNoteArchiveQuery, GetNoteArchiveQueryResult> getNoteArchive, IQueryHandler<GetNotesByPageQuery, GetNotesByPageQueryResult> getNotesByPage, IQueryHandler<GetNotesByTagsQuery, GetNotesByTagsQueryResult> getNotesByTags)
+    private readonly ICommandHandler<IncreaseViewsCommand, Unit> _increaseViews;
+
+    public NotesController(ILogger<HomeController> logger, IQueryHandler<GetNoteQuery, GetNoteQueryResult> getNote, IQueryHandler<GetNoteArchiveQuery, GetNoteArchiveQueryResult> getNoteArchive, IQueryHandler<GetNotesByPageQuery, GetNotesByPageQueryResult> getNotesByPage, IQueryHandler<GetNotesByTagsQuery, GetNotesByTagsQueryResult> getNotesByTags, ICommandHandler<IncreaseViewsCommand, Unit> increaseViews)
     {
         _logger = logger;
         _getNote = getNote;
         _getNoteArchive = getNoteArchive;
         _getNotesByPage = getNotesByPage;
         _getNotesByTags = getNotesByTags;
+        _increaseViews = increaseViews;
     }
 
     [Route("/blog")]
@@ -62,6 +67,9 @@ public class NotesController : Controller
     {
         var query = new GetNoteQuery { Id = id };
         var result = await _getNote.Handle(query, CancellationToken.None);
+
+        var increaseViewsCommand = new IncreaseViewsCommand { Id = id };
+        await _increaseViews.Handle(increaseViewsCommand, CancellationToken.None);
         
         return View(model: new NoteViewModel { Note = result });
     }

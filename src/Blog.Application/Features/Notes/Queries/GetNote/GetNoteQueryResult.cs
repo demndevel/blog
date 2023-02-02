@@ -8,4 +8,5 @@ public class GetNoteQueryResult
     public string Text { get; set; } = null!;
     public DateTime Date { get; set; }
     public string Tags { get; set; } = "";
+    public int Views { get; set; }
 }

@@ -29,7 +29,8 @@ public class GetNoteQueryHandler : IQueryHandler<GetNoteQuery, GetNoteQueryResul
             Text = note.Text,
             ShortDescription = note.ShortDescription,
             Date = note.Date,
-            Tags = note.Tags
+            Tags = note.Tags,
+            Views = note.Views
         };
         
         return result;
