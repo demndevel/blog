@@ -1,4 +1,5 @@
 using Application.Interfaces.Persistence;
+using Domain.Entities.Comment;
 using Domain.Entities.Note;
 using Domain.Entities.Project;
 using Domain.Entities.Tag;
@@ -16,6 +17,7 @@ public static class TestDbContext
     public const string FirstNoteDescription = "first note description";
     public const string FirstNoteTags = "common-tag;tag-lying-in-first-note";
     public const int FirstProjectId = 1;
+    public static readonly Guid FirstCommentId = Guid.NewGuid();
     
     public static IApplicationContext Create()
     {
@@ -28,10 +30,30 @@ public static class TestDbContext
         AddTags(context);
         AddNotes(context);
         AddProjects(context);
+        AddComments(context);
         
         context.SaveChanges();
         
         return context;
+    }
+
+    private static void AddComments(IApplicationContext db)
+    {
+        db.Comments.AddRange(new Comment
+        {
+            Id = FirstCommentId,
+            Name = "Amogus",
+            Text = "FirstCommentText",
+            PostId = FirstNoteId,
+            DateCreated = DateTime.Now
+        }, new Comment
+        {
+            Id = Guid.NewGuid(),
+            Name = "Another Amogus",
+            Text = "SecondCommentText",
+            DateCreated = DateTime.Now,
+            PostId = FirstNoteId
+        });
     }
 
     private static void AddTags(IApplicationContext db)
