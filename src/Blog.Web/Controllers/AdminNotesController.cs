@@ -6,11 +6,12 @@ using Application.Helpers;
 using Application.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Web.Filters;
 using Web.Models;
 
 namespace Web.Controllers;
 
-[Authorize]
+[Authorize, NotFoundExceptionFilter]
 public class AdminNotesController : Controller
 {
     private readonly ICommandHandler<CreateNoteCommand, long> _createNoteCommand;

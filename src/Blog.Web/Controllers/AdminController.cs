@@ -5,11 +5,12 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Web.Configs;
+using Web.Filters;
 using Web.Models;
 
 namespace Web.Controllers;
 
-[Route("admin")]
+[Route("admin"), NotFoundExceptionFilter]
 public class AdminController : Controller
 {
     private readonly string _adminPassword;

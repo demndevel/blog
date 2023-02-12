@@ -22,7 +22,13 @@ public class HomeController : Controller
         return View();
     }
 
-    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+    [Route("/404")]
+    public IActionResult NotFoundPage()
+    {
+        return View("404");
+    }
+
+    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true), Route("/error")]
     public IActionResult Error()
     {
         return View();

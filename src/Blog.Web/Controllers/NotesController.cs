@@ -6,11 +6,12 @@ using Application.Features.Notes.Queries.GetNotesByTags;
 using Application.Helpers;
 using Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Web.Filters;
 using Web.Models;
 
 namespace Web.Controllers;
 
-[Route("note")]
+[Route("note"), NotFoundExceptionFilter]
 public class NotesController : Controller
 {
     private readonly ILogger<HomeController> _logger;
