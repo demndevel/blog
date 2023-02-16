@@ -29,6 +29,9 @@
     </p>
     
     @Html.Raw(HttpUtility.HtmlDecode(Markdown.ToHtml(Model.Note.Text, pipeline)))
+
+    @await Component.InvokeAsync("Comments", new { id = Model.Note.Id })
+    <vc:comments noteId="@Model.Note.Id" />
 </main>
 <hr/>
 <script src="/js/addClasses.js"></script>

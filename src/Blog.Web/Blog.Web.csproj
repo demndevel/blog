@@ -25,4 +25,8 @@
       <ProjectReference Include="..\Blog.Infrastructure\Blog.Infrastructure.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="Views\Components\Comments\Default.cshtml" />
+    </ItemGroup>
+
 </Project>

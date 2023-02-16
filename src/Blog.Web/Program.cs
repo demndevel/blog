@@ -2,6 +2,7 @@ using Application;
 using Web.Configs;
 using Infrastructure;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.RateLimiting;
 
 var builder = WebApplication.CreateBuilder(args);
 {
@@ -23,7 +24,6 @@ builder.Services.AddMvc().AddXmlSerializerFormatters();
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options => options.LoginPath = "/admin/login");
 builder.Services.AddOptions();
-
 builder.Services.Configure<AdminPasswordConfig>(options =>
 {
     options.Password = builder.Configuration.GetSection("Admin").GetSection("Password").Value 
@@ -45,6 +45,12 @@ app.UseHttpsRedirection();
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseRateLimiter(new RateLimiterOptions { RejectionStatusCode = 429 }
+    .AddFixedWindowLimiter("Comments", options =>
+    {
+        options.Window = TimeSpan.FromSeconds(15);
+        options.PermitLimit = 2;
+    }));
 app.MapControllers();
 
 app.Run();

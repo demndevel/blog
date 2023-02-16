@@ -5,6 +5,7 @@
     --nc-font-mono: 'Hack', Consolas,monaco,'Ubuntu Mono','Liberation Mono','Courier New',Courier,monospace;
     --nc-tx-1: rgb(51,51,51);
     --nc-tx-2: #1A1A1A;
+    --nc-tx-3: #5A5A5A;
     --nc-bg-1: #FFFFFF;
     --nc-bg-2: #F6F8FA;
     --nc-bg-3: #E5E7EB;
@@ -20,6 +21,7 @@
     :root {
         --nc-tx-1: #ffffff;
         --nc-tx-2: #eeeeee;
+        --nc-tx-3: #ccc;
         --nc-bg-1: #000000;
         --nc-bg-2: #111111;
         --nc-bg-3: #222222;

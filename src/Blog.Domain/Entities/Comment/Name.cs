@@ -8,7 +8,7 @@ public class Name
     
     public Name(string value)
     {
-        if (value.Length > 50)
+        if (value is not null && value.Length > 50)
             throw new ValidationException("Name cannot be longer than 50 characters.");
         
         Value = string.IsNullOrWhiteSpace(value) ? "Anonymous" : value;
