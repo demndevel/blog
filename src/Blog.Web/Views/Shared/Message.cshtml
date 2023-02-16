@@ -1,0 +1,23 @@
+@using Web.Models
+@model Web.Models.MessageViewModel
+
+@switch (Model.Type)
+{
+    case MessageType.Information:
+    {
+        <h2>ℹ @Model.Title</h2>
+        break;
+    }
+    case MessageType.Success:
+    {
+        <h2>👌 @Model.Title</h2>
+        break;
+    }    
+    case MessageType.Failure:
+    {
+        <h2>👺 @Model.Title</h2>
+        break;
+    }
+}
+
+<p>@Model.Text</p>
