@@ -17,4 +17,12 @@ public static class DependencyInjection
         
         return services;
     }
+    
+    public static IServiceCollection AddPersistence(this IServiceCollection services, string connectionString)
+    {
+        var connection = connectionString;
+        services.AddDbContext<IApplicationContext, ApplicationContext>(options => options.UseSqlite(connection));
+
+        return services;
+    }
 }
