@@ -30,7 +30,8 @@ public class CreateCommentCommandHandler : ICommandHandler<CreateCommentCommand,
             Name = new Name(command.Name).Value,
             Text = new Text(command.Text).Value,
             IsAdmin = command.IsAdmin,
-            DateCreated = DateTime.Now
+            DateCreated = DateTime.Now,
+            Read = false
         };
     }
 }
