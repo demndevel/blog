@@ -51,7 +51,16 @@ public static class TestDbContext
             Id = Guid.NewGuid(),
             Name = "Another Amogus",
             Text = "SecondCommentText",
+            Read = false,
             DateCreated = DateTime.Now,
+            PostId = FirstNoteId
+        }, new Comment
+        {
+            Id = Guid.NewGuid(),
+            Name = "Another Amogus",
+            Text = "SecondCommentText",
+            DateCreated = DateTime.Now,
+            Read = true,
             PostId = FirstNoteId
         });
     }
