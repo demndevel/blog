@@ -5,10 +5,9 @@
 
 @{
     ViewData["Title"] = "Archive";
-    var notes = (List<GetNoteArchiveQueryResultItem>)Model.Notes;
-    notes.Sort((x, y) => DateTime.Compare(x.Date, y.Date));
-    var currentYear = 2022;
-    var currentMonth = 2022;
+    var notes = Model.Notes;
+    notes = notes.OrderBy(n => n.Date).ToList();
+    var currentDate = string.Empty;
 }
 
 <h1>Archive</h1>
@@ -16,20 +15,18 @@
 
 @foreach (var note in notes)
 {
-    if (note.Date.Year != currentYear)
+    @if (note.Date.ToString("yyyy MMMM", CultureInfo.GetCultureInfo("en-US")) == currentDate)
     {
-        currentYear = note.Date.Year;
-        <h2>@currentYear</h2>
+        <a href="/note/@note.Id">@note.Title</a>
+        <br/>
     }
-    
-    if (note.Date.Month != currentMonth)
+    else
     {
-        currentMonth = note.Date.Month;
-        <h4>@note.Date.ToString("MMMM", CultureInfo.GetCultureInfo("en-US"))</h4>
+        currentDate = note.Date.ToString("yyyy MMMM", CultureInfo.GetCultureInfo("en-US"));
+        <h4>@note.Date.ToString("yyyy MMMM", CultureInfo.GetCultureInfo("en-US"))</h4>
+        <a href="/note/@note.Id">@note.Title</a>
+        <br/>
     }
-    
-    <a href="/note/@note.Id">@note.Title</a>
-    <br/>
 }
 
 <hr/>
