@@ -1,0 +1,32 @@
+@model Web.Models.AdminCommentsViewModel
+
+<h1>Comments</h1>
+<hr/>
+
+<table>
+    <tr>
+        <th>Comment</th>
+        <th>Text</th>
+        <th>Delete</th>
+        <th>Mark as read</th>
+    </tr>
+    @foreach (var comment in Model.Comments)
+    {
+        <tr>
+            <td><a href="/note/@comment.PostId">P</a> | @comment.Name</td>
+            <td>@comment.Text</td>
+            <td><a href="/admin/comments/delete/@comment.Id" class="confirmation">Delete</a></td>
+            <td><a href="/admin/comments/markAsRead/@comment.Id">Mark as read</a></td>
+        </tr>
+    }
+</table>
+
+<script type="text/javascript">
+    var elems = document.getElementsByClassName('confirmation');
+    var confirmIt = function (e) {
+        if (!confirm('Are you sure?')) e.preventDefault();
+    };
+    for (var i = 0, l = elems.length; i < l; i++) {
+        elems[i].addEventListener('click', confirmIt, false);
+    }
+</script>

@@ -1,10 +1,11 @@
 using Application.Features.Projects.Queries.GetAllProjects;
 using Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Web.Filters;
 
 namespace Web.Controllers;
 
-[Route("projects")]
+[Route("projects"), NotFoundExceptionFilter]
 public class ProjectsController : Controller
 {
     private readonly ILogger<HomeController> _logger;

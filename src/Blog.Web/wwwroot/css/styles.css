@@ -65,3 +65,32 @@ strong {
         hyphens: auto;
     }
 }
+
+.separator {
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+
+.separator::before,
+.separator::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid var(--nc-bg-3);
+}
+
+.separator:not(:empty)::before {
+    margin-right: .25em;
+}
+
+.separator:not(:empty)::after {
+    margin-left: .25em;
+}
+
+.admin-color {
+    color: var(--nc-ac-tx);
+}
+
+.comment-name-color {
+    color: var(--nc-tx-3)
+}

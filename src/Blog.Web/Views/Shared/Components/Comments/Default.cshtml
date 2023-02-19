@@ -1,0 +1,24 @@
+@model Web.Models.GetCommentsByNoteIdViewModel
+
+<h2 id="comments">Comments</h2>
+
+<form action="/comments/create/@Model.PostId" method="post">
+    <input name="name" placeholder="Your name" class="feedback-input"/>
+    <br/>
+    <textarea name="text" placeholder="Text" class="feedback-input"></textarea>
+    <br/>
+    <input type="submit" value="Send"/>
+</form>
+
+@foreach (var comment in Model.Comments)
+{
+    <div class="separator">by &nbsp;<span class="comment-name-color">@comment.Name</span>&nbsp;
+        @if (comment.IsAdmin) 
+        { 
+            @:<span class="admin-color">&nbsp;&lt;admin&gt;&nbsp;</span>
+        }
+        
+        at&nbsp; @comment.DateCreated.ToString("yyyy MMMM dd")
+    </div>
+    <div class="comment" style="white-space: pre-line">@comment.Text</div>
+}

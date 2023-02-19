@@ -5,10 +5,11 @@ using Application.Helpers;
 using Application.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Web.Filters;
 
 namespace Web.Controllers;
 
-[Authorize]
+[Authorize, NotFoundExceptionFilter]
 public class AdminTagsController : Controller
 {
     private readonly IQueryHandler<GetAllTagsQuery,GetAllTagsQueryResult> _getAllTagsHandler;

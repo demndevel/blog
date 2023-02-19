@@ -1,10 +1,11 @@
 using Application.Features.Tags.Queries.GetAllTags;
 using Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Web.Filters;
 
 namespace Web.Controllers;
 
-[Route("tags")]
+[Route("tags"), NotFoundExceptionFilter]
 public class TagsController : Controller
 {
     private readonly ILogger<HomeController> _logger;
