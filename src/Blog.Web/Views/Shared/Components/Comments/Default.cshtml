@@ -1,3 +1,4 @@
+@using System.Globalization
 @model Web.Models.GetCommentsByNoteIdViewModel
 
 <h2 id="comments">Comments</h2>
@@ -18,7 +19,7 @@
             @:<span class="admin-color">&nbsp;&lt;admin&gt;&nbsp;</span>
         }
         
-        at&nbsp; @comment.DateCreated.ToString("yyyy MMMM dd")
+        at&nbsp; @comment.DateCreated.ToString("yyyy MMMM dd", CultureInfo.GetCultureInfo("en-US")))
     </div>
     <div class="comment" style="white-space: pre-line">@comment.Text</div>
 }
