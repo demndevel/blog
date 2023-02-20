@@ -15,8 +15,12 @@
 
     <ItemGroup>
       <PackageReference Include="Markdig" Version="0.30.4" />
-      <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.10" />
-      <PackageReference Include="NReco.Logging.File" Version="1.1.5" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.3">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.3" />
+      <PackageReference Include="NReco.Logging.File" Version="1.1.6" />
     </ItemGroup>
 
     <ItemGroup>
