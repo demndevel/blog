@@ -31,7 +31,7 @@ public class GetNotesByTagsQueryTests
         var result = await handler.Handle(query, CancellationToken.None);
 
         Assert.NotEmpty(result.Notes);
-        Assert.Equal(1, result.Notes.Count);
+        Assert.Single(result.Notes);
         
         TestDbContext.Destroy(db);
     }
