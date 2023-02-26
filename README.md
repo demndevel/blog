@@ -1,6 +1,10 @@
-# blog — some change from dev branch
+# My blog source code
 
+Features:
 
-sorry for the shitty code
-
-## VERY HOT HOTFIX
+- RSS
+- Comments
+- Project list
+- Tags
+- Archive
+- Markdown rendering
