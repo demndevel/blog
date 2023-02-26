@@ -14,19 +14,16 @@
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="Markdig" Version="0.30.4" />
-      <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.3">
-        <PrivateAssets>all</PrivateAssets>
-        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      </PackageReference>
-      <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.3" />
-      <PackageReference Include="NReco.Logging.File" Version="1.1.6" />
+        <ProjectReference Include="..\Blog.Application\Blog.Application.csproj" />
+        <ProjectReference Include="..\Blog.Domain\Blog.Domain.csproj" />
+        <ProjectReference Include="..\Blog.Infrastructure\Blog.Infrastructure.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Blog.Application\Blog.Application.csproj" />
-      <ProjectReference Include="..\Blog.Domain\Blog.Domain.csproj" />
-      <ProjectReference Include="..\Blog.Infrastructure\Blog.Infrastructure.csproj" />
+        <PackageReference Include="Markdig" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" />
+        <PackageReference Include="NReco.Logging.File" />
     </ItemGroup>
 
     <ItemGroup>

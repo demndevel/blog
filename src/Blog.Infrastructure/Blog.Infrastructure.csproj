@@ -8,28 +8,17 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Reference Include="Microsoft.EntityFrameworkCore">
-        <HintPath>..\..\..\..\.nuget\packages\microsoft.entityframeworkcore\7.0.3\lib\net6.0\Microsoft.EntityFrameworkCore.dll</HintPath>
-      </Reference>
-      <Reference Include="Microsoft.EntityFrameworkCore.Relational">
-        <HintPath>..\..\..\..\.nuget\packages\microsoft.entityframeworkcore.relational\7.0.2\lib\net6.0\Microsoft.EntityFrameworkCore.Relational.dll</HintPath>
-      </Reference>
-      <Reference Include="Microsoft.EntityFrameworkCore.Sqlite">
-        <HintPath>..\..\..\..\.nuget\packages\microsoft.entityframeworkcore.sqlite.core\6.0.10\lib\net6.0\Microsoft.EntityFrameworkCore.Sqlite.dll</HintPath>
-      </Reference>
+        <ProjectReference Include="..\Blog.Application\Blog.Application.csproj" />
+        <ProjectReference Include="..\Blog.Domain\Blog.Domain.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Blog.Application\Blog.Application.csproj" />
-      <ProjectReference Include="..\Blog.Domain\Blog.Domain.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.3">
-        <PrivateAssets>all</PrivateAssets>
-        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      </PackageReference>
-      <PackageReference Include="Microsoft.Extensions.Configuration" Version="7.0.0" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" />
     </ItemGroup>
 
 </Project>

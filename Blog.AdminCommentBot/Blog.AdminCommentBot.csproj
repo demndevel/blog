@@ -9,18 +9,17 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="Microsoft.Data.Sqlite" Version="7.0.3" />
-      <PackageReference Include="Microsoft.Data.Sqlite.Core" Version="7.0.3" />
-      <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.3" />
-      <PackageReference Include="Microsoft.Extensions.Caching.Abstractions" Version="7.0.0" />
-      <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
-      <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="7.0.0" />
-      <PackageReference Include="Telegram.Bot" Version="18.0.0" />
+        <ProjectReference Include="..\src\Blog.Application\Blog.Application.csproj" />
+        <ProjectReference Include="..\src\Blog.Infrastructure\Blog.Infrastructure.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\src\Blog.Application\Blog.Application.csproj" />
-      <ProjectReference Include="..\src\Blog.Infrastructure\Blog.Infrastructure.csproj" />
+      <PackageReference Include="Microsoft.Data.Sqlite" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" />
+      <PackageReference Include="Microsoft.Extensions.Caching.Abstractions" />
+      <PackageReference Include="Microsoft.Extensions.DependencyInjection" />
+      <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" />
+      <PackageReference Include="Telegram.Bot" />
     </ItemGroup>
 
 </Project>

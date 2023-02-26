@@ -26,6 +26,8 @@ public static class TestDbContext
             .Options;
 
         var context = new ApplicationContext(options);
+
+        context.Database.EnsureCreated();
         
         AddTags(context);
         AddNotes(context);

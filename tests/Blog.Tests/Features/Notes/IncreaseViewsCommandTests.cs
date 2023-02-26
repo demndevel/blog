@@ -1,6 +1,5 @@
 using Application.Errors;
 using Application.Features.Notes.Commands.IncreaseViews;
-using Application.Helpers;
 using Blog.Tests.Helpers;
 
 namespace Blog.Tests.Features.Notes;
