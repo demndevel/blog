@@ -16,9 +16,7 @@ jobs:
           dotnet-version: 7.0.102
       - name: Dotnet Publish
         run: |
-          pwd
-          ls
-          dotnet publish src -c Release -o deploy
+          dotnet publish -c Release -o deploy 
       - name: Copy via ssh
         uses: garygrossgarten/github-action-scp@v0.8.0
         with:
