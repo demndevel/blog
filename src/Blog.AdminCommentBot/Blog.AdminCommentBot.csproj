@@ -9,8 +9,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\src\Blog.Application\Blog.Application.csproj" />
-        <ProjectReference Include="..\src\Blog.Infrastructure\Blog.Infrastructure.csproj" />
+        <ProjectReference Include="..\Blog.Application\Blog.Application.csproj" />
+        <ProjectReference Include="..\Blog.Infrastructure\Blog.Infrastructure.csproj" />
     </ItemGroup>
 
     <ItemGroup>
