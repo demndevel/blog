@@ -1,5 +1,5 @@
 using Application.Interfaces;
-using Application.Interfaces.Persistence;
+using Application.Persistence;
 using Mapster;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,9 +7,9 @@ namespace Application.Features.Notes.Queries.GetNotesByPage;
 
 public class GetNotesByPageQueryHandler : IQueryHandler<GetNotesByPageQuery, GetNotesByPageQueryResult>
 {
-    private readonly IApplicationContext _db;
+    private readonly ApplicationContext _db;
 
-    public GetNotesByPageQueryHandler(IApplicationContext db)
+    public GetNotesByPageQueryHandler(ApplicationContext db)
     {
         _db = db;
     }

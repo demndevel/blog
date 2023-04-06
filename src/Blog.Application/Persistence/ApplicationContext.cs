@@ -1,13 +1,12 @@
-using Application.Interfaces.Persistence;
 using Domain.Entities.Comment;
 using Domain.Entities.Note;
 using Domain.Entities.Project;
 using Domain.Entities.Tag;
 using Microsoft.EntityFrameworkCore;
 
-namespace Infrastructure.Persistence;
+namespace Application.Persistence;
 
-public sealed class ApplicationContext : DbContext, IApplicationContext
+public sealed class ApplicationContext : DbContext
 {
     public ApplicationContext(DbContextOptions<ApplicationContext> options)
         : base(options)

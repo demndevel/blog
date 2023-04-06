@@ -1,7 +1,7 @@
 using Application.Errors;
 using Application.Helpers;
 using Application.Interfaces;
-using Application.Interfaces.Persistence;
+using Application.Persistence;
 using Domain.Entities.Project;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,9 +9,9 @@ namespace Application.Features.Projects.Commands.DeleteProject;
 
 public class DeleteProjectCommandHandler : ICommandHandler<DeleteProjectCommand, Unit>
 {
-    private readonly IApplicationContext _db;
+    private readonly ApplicationContext _db;
 
-    public DeleteProjectCommandHandler(IApplicationContext db)
+    public DeleteProjectCommandHandler(ApplicationContext db)
     {
         _db = db;
     }

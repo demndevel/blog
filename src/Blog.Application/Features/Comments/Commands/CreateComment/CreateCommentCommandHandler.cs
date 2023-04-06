@@ -1,14 +1,14 @@
 using Application.Interfaces;
-using Application.Interfaces.Persistence;
+using Application.Persistence;
 using Domain.Entities.Comment;
 
 namespace Application.Features.Comments.Commands.CreateComment;
 
 public class CreateCommentCommandHandler : ICommandHandler<CreateCommentCommand, Guid>
 {
-    private readonly IApplicationContext _db;
+    private readonly ApplicationContext _db;
 
-    public CreateCommentCommandHandler(IApplicationContext db)
+    public CreateCommentCommandHandler(ApplicationContext db)
     {
         _db = db;
     }

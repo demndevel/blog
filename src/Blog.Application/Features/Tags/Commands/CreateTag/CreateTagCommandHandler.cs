@@ -1,14 +1,14 @@
 using Application.Interfaces;
-using Application.Interfaces.Persistence;
+using Application.Persistence;
 using Domain.Entities.Tag;
 
 namespace Application.Features.Tags.Commands.CreateTag;
 
 public class CreateTagCommandHandler : ICommandHandler<CreateTagCommand, int>
 {
-    private readonly IApplicationContext _db;
+    private readonly ApplicationContext _db;
 
-    public CreateTagCommandHandler(IApplicationContext db)
+    public CreateTagCommandHandler(ApplicationContext db)
     {
         _db = db;
     }

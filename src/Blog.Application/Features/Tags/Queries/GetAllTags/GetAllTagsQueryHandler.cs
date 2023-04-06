@@ -1,5 +1,5 @@
 using Application.Interfaces;
-using Application.Interfaces.Persistence;
+using Application.Persistence;
 using Mapster;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,9 +7,9 @@ namespace Application.Features.Tags.Queries.GetAllTags;
 
 public class GetAllTagsQueryHandler : IQueryHandler<GetAllTagsQuery, GetAllTagsQueryResult>
 {
-    private readonly IApplicationContext _db;
+    private readonly ApplicationContext _db;
 
-    public GetAllTagsQueryHandler(IApplicationContext db)
+    public GetAllTagsQueryHandler(ApplicationContext db)
     {
         _db = db;
     }

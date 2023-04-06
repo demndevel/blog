@@ -1,7 +1,7 @@
 using Application.Errors;
 using Application.Helpers;
 using Application.Interfaces;
-using Application.Interfaces.Persistence;
+using Application.Persistence;
 using Domain.Entities.Note;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,9 +9,9 @@ namespace Application.Features.Notes.Commands.IncreaseViews;
 
 public class IncreaseViewsCommandHandler : ICommandHandler<IncreaseViewsCommand, Unit>
 {
-    private readonly IApplicationContext _db;
+    private readonly ApplicationContext _db;
     
-    public IncreaseViewsCommandHandler(IApplicationContext db)
+    public IncreaseViewsCommandHandler(ApplicationContext db)
     {
         _db = db;
     }

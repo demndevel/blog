@@ -1,16 +1,16 @@
 using Application.Errors;
 using Application.Helpers;
 using Application.Interfaces;
-using Application.Interfaces.Persistence;
+using Application.Persistence;
 using Domain.Entities.Comment;
 
 namespace Application.Features.Comments.Commands.DeleteComment;
 
 public class DeleteCommentCommandHandler : ICommandHandler<DeleteCommentCommand, Unit>
 {
-    private readonly IApplicationContext _db;
+    private readonly ApplicationContext _db;
 
-    public DeleteCommentCommandHandler(IApplicationContext db)
+    public DeleteCommentCommandHandler(ApplicationContext db)
     {
         _db = db;
     }

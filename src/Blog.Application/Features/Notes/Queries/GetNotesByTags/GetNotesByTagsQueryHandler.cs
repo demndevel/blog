@@ -1,5 +1,5 @@
 using Application.Interfaces;
-using Application.Interfaces.Persistence;
+using Application.Persistence;
 using Mapster;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,9 +7,9 @@ namespace Application.Features.Notes.Queries.GetNotesByTags;
 
 public class GetNotesByTagsQueryHandler : IQueryHandler<GetNotesByTagsQuery, GetNotesByTagsQueryResult>
 {
-    private readonly IApplicationContext _db;
+    private readonly ApplicationContext _db;
 
-    public GetNotesByTagsQueryHandler(IApplicationContext db)
+    public GetNotesByTagsQueryHandler(ApplicationContext db)
     {
         _db = db;
     }

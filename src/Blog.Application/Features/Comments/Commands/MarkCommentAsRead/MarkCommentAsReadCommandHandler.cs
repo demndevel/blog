@@ -1,7 +1,7 @@
 using Application.Errors;
 using Application.Helpers;
 using Application.Interfaces;
-using Application.Interfaces.Persistence;
+using Application.Persistence;
 using Domain.Entities.Comment;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,9 +9,9 @@ namespace Application.Features.Comments.Commands.MarkCommentAsRead;
 
 public class MarkCommentAsReadCommandHandler : ICommandHandler<MarkCommentAsReadCommand, Unit>
 {
-    private readonly IApplicationContext _db;
+    private readonly ApplicationContext _db;
 
-    public MarkCommentAsReadCommandHandler(IApplicationContext db)
+    public MarkCommentAsReadCommandHandler(ApplicationContext db)
     {
         _db = db;
     }

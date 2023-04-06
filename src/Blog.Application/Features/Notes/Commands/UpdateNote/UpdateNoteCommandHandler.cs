@@ -1,7 +1,7 @@
 using Application.Errors;
 using Application.Helpers;
 using Application.Interfaces;
-using Application.Interfaces.Persistence;
+using Application.Persistence;
 using Domain.Entities.Note;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,9 +9,9 @@ namespace Application.Features.Notes.Commands.UpdateNote;
 
 public class UpdateNoteCommandHandler : ICommandHandler<UpdateNoteCommand, Unit>
 {
-    private readonly IApplicationContext _db;
+    private readonly ApplicationContext _db;
 
-    public UpdateNoteCommandHandler(IApplicationContext db)
+    public UpdateNoteCommandHandler(ApplicationContext db)
     {
         _db = db;
     }

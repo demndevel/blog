@@ -1,10 +1,10 @@
-using Application.Interfaces.Persistence;
+using Application.Persistence;
 using Domain.Entities.Comment;
 using Domain.Entities.Note;
 using Domain.Entities.Project;
 using Domain.Entities.Tag;
-using Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
+using ApplicationContext = Application.Persistence.ApplicationContext;
 
 namespace Blog.Tests.Helpers;
 
@@ -19,13 +19,13 @@ public static class TestDbContext
     public const int FirstProjectId = 1;
     public static readonly Guid FirstCommentId = Guid.NewGuid();
     
-    public static IApplicationContext Create()
+    public static ApplicationContext Create()
     {
-        var options = new DbContextOptionsBuilder<ApplicationContext>()
+        var options = new DbContextOptionsBuilder<Application.Persistence.ApplicationContext>()
             .UseSqlite($"Data Source={Guid.NewGuid()}.db")
             .Options;
 
-        var context = new ApplicationContext(options);
+        var context = new Application.Persistence.ApplicationContext(options);
 
         context.Database.EnsureCreated();
         
@@ -39,7 +39,7 @@ public static class TestDbContext
         return context;
     }
 
-    private static void AddComments(IApplicationContext db)
+    private static void AddComments(ApplicationContext db)
     {
         db.Comments.AddRange(new Comment
         {
@@ -67,7 +67,7 @@ public static class TestDbContext
         });
     }
 
-    private static void AddTags(IApplicationContext db)
+    private static void AddTags(ApplicationContext db)
     {
         db.Tags.AddRange(
             new Tag
@@ -83,7 +83,7 @@ public static class TestDbContext
         );
     }
 
-    private static void AddNotes(ApplicationContext db)
+    private static void AddNotes(Application.Persistence.ApplicationContext db)
     {
         db.Notes.AddRange(new Note
         {
@@ -104,7 +104,7 @@ public static class TestDbContext
         });
     }
 
-    private static void AddProjects(ApplicationContext db)
+    private static void AddProjects(Application.Persistence.ApplicationContext db)
     {
         db.Add(new Project
         {
@@ -115,9 +115,9 @@ public static class TestDbContext
         });
     }
 
-    public static void Destroy(IApplicationContext db)
+    public static void Destroy(ApplicationContext db)
     {
-        var db1 = (ApplicationContext)db;
+        var db1 = (Application.Persistence.ApplicationContext)db;
         db1.Database.EnsureDeleted();
         db1.Dispose();
     }

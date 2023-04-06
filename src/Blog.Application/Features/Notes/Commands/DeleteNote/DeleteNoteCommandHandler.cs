@@ -1,16 +1,16 @@
 using Application.Errors;
 using Application.Helpers;
 using Application.Interfaces;
-using Application.Interfaces.Persistence;
+using Application.Persistence;
 using Domain.Entities.Note;
 
 namespace Application.Features.Notes.Commands.DeleteNote;
 
 public class DeleteNoteCommandHandler : ICommandHandler<DeleteNoteCommand, Unit>
 {
-    private readonly IApplicationContext _db;
+    private readonly ApplicationContext _db;
 
-    public DeleteNoteCommandHandler(IApplicationContext db)
+    public DeleteNoteCommandHandler(ApplicationContext db)
     {
         _db = db;
     }

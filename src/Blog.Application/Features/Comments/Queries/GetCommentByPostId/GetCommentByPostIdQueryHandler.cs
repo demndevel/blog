@@ -1,5 +1,5 @@
 using Application.Interfaces;
-using Application.Interfaces.Persistence;
+using Application.Persistence;
 using Mapster;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,9 +7,9 @@ namespace Application.Features.Comments.Queries.GetCommentByPostId;
 
 public class GetCommentByPostIdQueryHandler : IQueryHandler<GetCommentByPostIdQuery, GetCommentByPostIdQueryResult>
 {
-    private readonly IApplicationContext _db;
+    private readonly ApplicationContext _db;
 
-    public GetCommentByPostIdQueryHandler(IApplicationContext db)
+    public GetCommentByPostIdQueryHandler(ApplicationContext db)
     {
         _db = db;
     }

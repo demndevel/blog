@@ -1,6 +1,6 @@
 using Application.Errors;
 using Application.Interfaces;
-using Application.Interfaces.Persistence;
+using Application.Persistence;
 using Domain.Entities.Note;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,9 +8,9 @@ namespace Application.Features.Notes.Queries.GetNote;
 
 public class GetNoteQueryHandler : IQueryHandler<GetNoteQuery, GetNoteQueryResult>
 {
-    private readonly IApplicationContext _db;
+    private readonly ApplicationContext _db;
 
-    public GetNoteQueryHandler(IApplicationContext db)
+    public GetNoteQueryHandler(ApplicationContext db)
     {
         _db = db;
     }

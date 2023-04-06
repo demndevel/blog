@@ -1,5 +1,5 @@
 using Application.Interfaces;
-using Application.Interfaces.Persistence;
+using Application.Persistence;
 using Mapster;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,9 +7,9 @@ namespace Application.Features.Notes.Queries.GetNoteArchive;
 
 public class GetNoteArchiveQueryHandler : IQueryHandler<GetNoteArchiveQuery, GetNoteArchiveQueryResult>
 {
-    private readonly IApplicationContext _db;
+    private readonly ApplicationContext _db;
 
-    public GetNoteArchiveQueryHandler(IApplicationContext db)
+    public GetNoteArchiveQueryHandler(ApplicationContext db)
     {
         _db = db;
     }

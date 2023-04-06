@@ -1,5 +1,5 @@
 using Application.Interfaces;
-using Application.Interfaces.Persistence;
+using Application.Persistence;
 using Mapster;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,9 +7,9 @@ namespace Application.Features.Comments.Queries.GetUnreadComments;
 
 public class GetUnreadCommentsQueryHandler : IQueryHandler<GetUnreadCommentsQuery, GetUnreadCommentsResult>
 {
-    private readonly IApplicationContext _db;
+    private readonly ApplicationContext _db;
 
-    public GetUnreadCommentsQueryHandler(IApplicationContext db)
+    public GetUnreadCommentsQueryHandler(ApplicationContext db)
     {
         _db = db;
     }

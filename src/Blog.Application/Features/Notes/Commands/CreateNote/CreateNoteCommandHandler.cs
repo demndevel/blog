@@ -1,14 +1,14 @@
 using Application.Interfaces;
-using Application.Interfaces.Persistence;
+using Application.Persistence;
 using Domain.Entities.Note;
 
 namespace Application.Features.Notes.Commands.CreateNote;
 
 public class CreateNoteCommandHandler : ICommandHandler<CreateNoteCommand, long>
 {
-    private readonly IApplicationContext _db;
+    private readonly ApplicationContext _db;
 
-    public CreateNoteCommandHandler(IApplicationContext db)
+    public CreateNoteCommandHandler(ApplicationContext db)
     {
         _db = db;
     }

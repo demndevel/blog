@@ -1,8 +1,8 @@
-using Application.Interfaces.Persistence;
-using Infrastructure.Persistence;
+using Application.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using ApplicationContext = Application.Persistence.ApplicationContext;
 
 namespace Infrastructure;
 
@@ -12,7 +12,7 @@ public static class DependencyInjection
     {
         var connection = configuration.GetConnectionString("DefaultConnection") 
                          ?? throw new Exception("Unable to parse DbConnection configuration");
-        services.AddDbContext<IApplicationContext, ApplicationContext>(options => options.UseSqlite(connection));
+        services.AddDbContext<ApplicationContext, Application.Persistence.ApplicationContext>(options => options.UseSqlite(connection));
         
         
         return services;
@@ -21,7 +21,7 @@ public static class DependencyInjection
     public static IServiceCollection AddPersistence(this IServiceCollection services, string connectionString)
     {
         var connection = connectionString;
-        services.AddDbContext<IApplicationContext, ApplicationContext>(options => options.UseSqlite(connection));
+        services.AddDbContext<ApplicationContext, Application.Persistence.ApplicationContext>(options => options.UseSqlite(connection));
 
         return services;
     }

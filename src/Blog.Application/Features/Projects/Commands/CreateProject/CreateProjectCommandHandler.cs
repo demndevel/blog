@@ -1,14 +1,14 @@
 using Application.Interfaces;
-using Application.Interfaces.Persistence;
+using Application.Persistence;
 using Domain.Entities.Project;
 
 namespace Application.Features.Projects.Commands.CreateProject;
 
 public class CreateProjectCommandHandler : ICommandHandler<CreateProjectCommand, long>
 {
-    private readonly IApplicationContext _db;
+    private readonly ApplicationContext _db;
 
-    public CreateProjectCommandHandler(IApplicationContext db)
+    public CreateProjectCommandHandler(ApplicationContext db)
     {
         _db = db;
     }
