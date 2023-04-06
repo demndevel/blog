@@ -20,9 +20,9 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Markdig" Version="0.30.4" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.3" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.3" />
+        <PackageReference Include="Markdig" Version="0.31.0" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.4" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.4" />
         <PackageReference Include="NReco.Logging.File" Version="1.1.6" />
     </ItemGroup>
 
