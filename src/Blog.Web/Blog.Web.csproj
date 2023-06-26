@@ -22,7 +22,7 @@
     <ItemGroup>
         <PackageReference Include="Markdig" Version="0.31.0" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.7" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.7" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.8" />
         <PackageReference Include="NReco.Logging.File" Version="1.1.6" />
     </ItemGroup>
 
